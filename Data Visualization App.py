@@ -153,6 +153,7 @@ px.scatter(j, x='own_pcnt', y='TikimSum')
 # Assuming g, data, and df are your dataframes
 
 app = Dash(__name__)
+server=app.server
 
 # Create the layout
 app.layout = html.Div([
