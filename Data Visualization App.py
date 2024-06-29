@@ -5,10 +5,10 @@ import logging
 
 
 # Loading the data
-df = pd.read_csv('/content/drive/Shareddrives/visualization/crimes updated.csv')
+df = pd.read_csv('crimes updated.csv')
 df = df[~df['Settlement_Council'].isin(['מקום', 'מקום אחר'])]
 
-clusters = pd.read_excel('/content/drive/Shareddrives/visualization/cities_clusters.xlsx')
+clusters = pd.read_excel('cities_clusters.xlsx')
 
 # Process clusters dataframe
 clusters = clusters.iloc[4:]
