@@ -128,9 +128,6 @@ data = pd.read_csv(grouped_data_by_cluster)
 preprocessed_data=os.path.join(os.path.dirname(__file__), 'preprocessed_data.csv')
 df = pd.read_csv(preprocessed_data)
 
-geojson=os.path.join(os.path.dirname(__file__), 'geojson.json')
-geojson_data = pd.read_json(geojson)
-
 
 # Custom CSS to set text direction to right-to-left
 st.markdown(
