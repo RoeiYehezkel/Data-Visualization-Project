@@ -71,7 +71,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
     merged_df['Quarter'] = pd.Categorical(merged_df['Quarter'], ordered=True, categories=sorted(df['Quarter'].unique()))
     # Define the desired order for the 'Religious level' column
     religious_order = ['חילונים', 'מסורתיים', 'חרדים', 'דתיים']
-    merged_df['Religious level'] = pd.Categorical(merged_df['Religious level'], categories=religious_order, ordered=True)
+    merged_df['Religious level'] = pd.Categorical(merged_df['Religious level'], categories=religious_order)
     if selected_group == 'All':
         # Compute the total number of crimes for each crime group and quarter
         total_crimes_per_group = merged_df.groupby(['StatisticCrimeGroup', 'Quarter'])['TikimSum_original'].sum().reset_index()
