@@ -43,15 +43,38 @@ st.markdown(
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>',unsafe_allow_html=True)
 
 
+# Create a selectbox for choosing the police district
 selected_district = st.selectbox("בחר את מחוז המשטרה", g['PoliceDistrict'].unique())
+
+# If a district is selected, filter the data and create a plot
 if selected_district:
     district_data = g[g['PoliceDistrict'] == selected_district]
     color_sequence_district = ['#7570b3', '#d95f02', '#1b9e77']
     fig = px.line(district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
-                      title=f'מגמות התיקים שנפתחו ב{selected_district}',
-                      color_discrete_sequence=color_sequence_district)
-    fig.update_layout(yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב')
+                  title=f'מגמות התיקים שנפתחו ב{selected_district}',
+                  color_discrete_sequence=color_sequence_district)
+    fig.update_layout(
+        yaxis_title='כמות התיקים', 
+        xaxis_title='רבעון', 
+        title_x=0.75, 
+        legend_title_text='מרחב',
+        title={
+            'text': f'מגמות התיקים שנפתחו ב{selected_district}',
+            'x':0.5,
+            'xanchor': 'center',
+            'yanchor': 'top',
+            'font': {'size': 20},
+            'automargin': True
+        },
+        font=dict(family="Arial, sans-serif", size=12, color="Black")
+    )
+    fig.update_yaxes(automargin=True)
+    fig.update_xaxes(automargin=True)
+    
+    # Render the plot in Streamlit with RTL text
+    st.markdown('<div class="rtl-text">', unsafe_allow_html=True)
     st.plotly_chart(fig)
+    st.markdown('</div>', unsafe_allow_html=True)
 #Crime Group Distribution
 selected_groups = st.multiselect("בחר את קבוצות הפשיעה", data['StatisticCrimeGroup'].unique(), default=['עבירות כלפי הרכוש'])
 if selected_groups:
