@@ -57,13 +57,13 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
 
     # Ensure Quarter is treated as a categorical variable with a specific order
     merged_df['Quarter'] = pd.Categorical(merged_df['Quarter'], ordered=True, categories=sorted(df['Quarter'].unique()))
-
+    
     # Set the order of the 'Religious level' column and use blue color saturation levels
     desired_order = ['חילונים', 'מסורתיים', 'דתיים', 'חרדים']
     merged_df['Religious level'] = pd.Categorical(merged_df['Religious level'], categories=desired_order, ordered=True)
-
+    
     # Define color sequence with varying saturation levels of blue
-    color_sequence = ['#0000FF', '#6666FF', '#9999FF', '#CCCCFF']
+    color_sequence = ['#cc4c02', '#fe9929', '#fed98e', '#ffffd4']
 
     if selected_group == 'All':
         # Compute the total number of crimes for each crime group and quarter
@@ -77,89 +77,55 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
         df_merged['RelativeTikimSum'] = df_merged['TikimSum_original'] / df_merged['TotalTikimSum']
 
         # Group by crime group, religious level, and quarter
-        relative_crime_data = df_merged.groupby(['StatisticCrimeGroup', 'Religious level', 'Quarter']).agg({
-            'RelativeTikimSum': 'sum',
-            'TikimSum_original': 'sum'
-        }).reset_index()
+        relative_crime_data = df_merged.groupby(['StatisticCrimeGroup', 'Religious level', 'Quarter']).agg({'RelativeTikimSum': 'sum',
+            'TikimSum_original': 'sum'}).reset_index()
 
-        fig = go.Figure()
-
-        for level, color in zip(desired_order, color_sequence):
-            for quarter in sorted(unique_quarters):
-                df_quarter = relative_crime_data[
-                    (relative_crime_data['Quarter'] == quarter) & (relative_crime_data['Religious level'] == level)]
-                fig.add_trace(go.Bar(
-                    x=df_quarter['RelativeTikimSum'],
-                    y=df_quarter['StatisticCrimeGroup'],
-                    name=f'{level} - {quarter}',
-                    marker_color=color,
-                    marker_line_color='black',
-                    marker_line_width=1,
-                    orientation='h',
-                    hoverinfo='text',
-                    hovertext=df_quarter.apply(
-                        lambda row: f'קבוצת עבירה: {row["StatisticCrimeGroup"]}<br>אחוז הפשיעה: {row["RelativeTikimSum"]}<br>רמת דתיות: {row["Religious level"]}<br>סה"כ תיקים: {row["TikimSum_original"]}',
-                        axis=1)
-                ))
-
-        fig.update_layout(
-            title=f'הקשר בין רמת הדתיות לרמת הפשיעה לפי קבוצת עבירה',
-            xaxis_title='אחוז הפשיעה',
-            yaxis_title='קבוצת עבירה',
-            barmode='stack',
-            legend_title='רמת דתיות ותקופה',
-            height=2500,
-        )
-
+        # Plot the relative bar chart with small multiples for each quarter
+        fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeGroup', color='Religious level',
+                     title=f'הקשר בין רמת הדתיות לרמת הפשיעה לפי קבוצת עבירה',
+                     labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'RelativeTikimSum': 'אחוז הפשיעה', 'Religious level': 'רמת דתיות'},
+                     barmode='stack',  # Use stacked bar mode
+                     hover_data=['RelativeTikimSum', 'TikimSum_original'],
+                     facet_col='Quarter',
+                     color_discrete_sequence=color_sequence,
+                     category_orders={'Quarter': sorted(unique_quarters), 'Religious level': desired_order},
+                     facet_col_wrap=4,
+                     height=2500,  # Set the height to fit the page
+                     facet_row_spacing=0.05)  # Adjust row spacing if needed
     else:
         # Filter the dataframe by selected crime group
         filtered_df = merged_df[merged_df['StatisticCrimeGroup'] == selected_group]
-    
+
         # Compute the total number of crimes for each crime type and quarter within the selected crime group
         total_crimes_per_type = filtered_df.groupby(['StatisticCrimeType', 'Quarter'])['TikimSum_original'].sum().reset_index()
         total_crimes_per_type.columns = ['StatisticCrimeType', 'Quarter', 'TotalTikimSum']
-    
+
         # Merge the total crimes with the filtered dataframe
         df_merged = pd.merge(filtered_df, total_crimes_per_type, on=['StatisticCrimeType', 'Quarter'])
-    
+
         # Compute the relative number of crimes for each religious level within each crime type
         df_merged['RelativeTikimSum'] = df_merged['TikimSum_original'] / df_merged['TotalTikimSum']
-    
+
         # Group by crime type, religious level, and quarter
-        relative_crime_data = df_merged.groupby(['StatisticCrimeType', 'Religious level', 'Quarter']).agg({
-            'RelativeTikimSum': 'sum',
-            'TikimSum_original': 'sum'
-        }).reset_index()
-    
-        fig = go.Figure()
-    
-        for level, color in zip(desired_order, color_sequence):
-            for quarter in sorted(unique_quarters):
-                df_quarter = relative_crime_data[
-                    (relative_crime_data['Quarter'] == quarter) & (relative_crime_data['Religious level'] == level)]
-                fig.add_trace(go.Bar(
-                    x=df_quarter['RelativeTikimSum'],
-                    y=df_quarter['StatisticCrimeType'],
-                    name=f'{level} - {quarter}',
-                    marker_color=color,
-                    marker_line_color='black',
-                    marker_line_width=1,
-                    orientation='h',
-                    hoverinfo='text',
-                    hovertext=df_quarter.apply(
-                        lambda row: f'סוג עבירה: {row["StatisticCrimeType"]}<br>אחוז הפשיעה: {row["RelativeTikimSum"]}<br>רמת דתיות: {row["Religious level"]}<br>סה"כ תיקים: {row["TikimSum_original"]}',
-                        axis=1)
-                ))
+        relative_crime_data = df_merged.groupby(['StatisticCrimeType', 'Religious level', 'Quarter']).agg({'RelativeTikimSum': 'sum',
+            'TikimSum_original': 'sum'}).reset_index()
 
-        fig.update_layout(
-            title=f'הקשר בין מידת הדתיות של היישוב לרמת הפשיעה לפי {selected_group}',
-            xaxis_title='אחוז הפשיעה',
-            yaxis_title='סוג עבירה',
-            barmode='stack',
-            legend_title='רמת דתיות ותקופה',
-            height=2500,
-        )
+        # Plot the relative bar chart with small multiples for each quarter
+        fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeType', color='Religious level',
+                     title=f'הקשר בין מידת הדתיות של היישוב לרמת הפשיעה לפי {selected_group}',
+                     labels={'StatisticCrimeType': 'סוג עבירה', 'RelativeTikimSum': 'אחוז הפשיעה', 'Religious level': 'רמת דתיות'},
+                     barmode='stack',  # Use stacked bar mode
+                     hover_data=['RelativeTikimSum', 'TikimSum_original'],
+                     facet_col='Quarter',
+                     color_discrete_sequence=color_sequence,
+                     category_orders={'Quarter': sorted(unique_quarters), 'Religious level': desired_order},
+                     facet_col_wrap=4,
+                     height=2500,  # Set the height to fit the page
+                     facet_row_spacing=0.05)  # Adjust row spacing if needed
 
+    # Update layout to show x-axis in all facets
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(showticklabels=True, title_text='אחוז הפשיעה'))
+    fig.update_layout(title_x=0.45)
     st.plotly_chart(fig, use_container_width=True)
 
 # Example usage
