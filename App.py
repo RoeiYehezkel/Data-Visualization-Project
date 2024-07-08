@@ -36,18 +36,13 @@ st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בי
     </style>''',unsafe_allow_html=True)
 
 
-# Create two columns
-col1, col2 = st.columns([2, 1])
-
-with col2:
-    selected_district = st.selectbox("בחר את מחוז המשטרה", g['PoliceDistrict'].unique())
-
+selected_district = st.selectbox("בחר את מחוז המשטרה", g['PoliceDistrict'].unique())
 if selected_district:
     district_data = g[g['PoliceDistrict'] == selected_district]
     color_sequence_district = ['#7570b3', '#d95f02', '#1b9e77']
     fig = px.line(district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
-                  title=f'מגמות התיקים שנפתחו ב{selected_district}',
-                  color_discrete_sequence=color_sequence_district)
+                      title=f'מגמות התיקים שנפתחו ב{selected_district}',
+                      color_discrete_sequence=color_sequence_district)
     fig.update_layout(yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב')
     st.plotly_chart(fig)
 #Crime Group Distribution
