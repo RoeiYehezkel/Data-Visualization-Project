@@ -32,7 +32,7 @@ df = pd.read_csv(preprocessed_data)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>',unsafe_allow_html=True)
 
 
-selected_district = st.selectbox("Select Police District", g['PoliceDistrict'].unique())
+selected_district = st.selectbox("בחר את מחוז המשטרה", g['PoliceDistrict'].unique())
 if selected_district:
     district_data = g[g['PoliceDistrict'] == selected_district]
     color_sequence_district = ['#7570b3', '#d95f02', '#1b9e77']
@@ -42,7 +42,7 @@ if selected_district:
     fig.update_layout(yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב')
     st.plotly_chart(fig)
 #Crime Group Distribution
-selected_groups = st.multiselect("Select Crime Groups", data['StatisticCrimeGroup'].unique(), default=['עבירות כלפי הרכוש'])
+selected_groups = st.multiselect("בחר את קבוצות הפשיעה", data['StatisticCrimeGroup'].unique(), default=['עבירות כלפי הרכוש'])
 if selected_groups:
     filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)]
     fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
@@ -138,7 +138,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
 unique_quarters = df['Quarter'].unique()
 # Add a dropdown to select the crime group
 crime_groups = sorted(['כלל העבירות'] + df['StatisticCrimeGroup'].unique().tolist())
-selected_group = st.selectbox('Select Crime Group', crime_groups)
+selected_group = st.selectbox('בחר את קבוצת העבירה', crime_groups)
 
 # Call the function to plot the chart
 plot_relative_crime_by_religion_and_group(df, data, selected_group)
