@@ -59,7 +59,7 @@ if selected_groups:
     fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
                  title=f'התפלגות העבירות הנ"ל')
     fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
-    fig.update_layout(barmode='relative', xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
+    fig.update_layout(barmode='relative', bargap=0.2 xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
                       legend_title_text='קבוצת העבירות', title_x=0.8)
     st.plotly_chart(fig)
 
