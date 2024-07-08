@@ -69,9 +69,13 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
 
     # Ensure Quarter is treated as a categorical variable with a specific order
     merged_df['Quarter'] = pd.Categorical(merged_df['Quarter'], ordered=True, categories=sorted(df['Quarter'].unique()))
-    # Sort the 'Religious level' column lexicographically
-    # Set the order of the 'Religious level' column
     desired_order = ['חילונים', 'מסורתיים', 'דתיים', 'חרדים']
+    colors = {
+        'חילונים': 'blue',
+        'מסורתיים': 'lightblue',
+        'דתיים': 'red',
+        'חרדים': 'pink'
+    }
     merged_df['Religious level'] = pd.Categorical(merged_df['Religious level'], categories=desired_order, ordered=True)
     if selected_group == 'All':
         # Compute the total number of crimes for each crime group and quarter
