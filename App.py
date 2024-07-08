@@ -75,7 +75,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
     merged_df['Religious level'] = pd.Categorical(merged_df['Religious level'], categories=desired_order, ordered=True)
     
     # Define color sequence with varying saturation levels of blue
-    color_sequence = ['#0000FF', '#6666FF', '#9999FF', '#CCCCFF']
+    color_sequence = ['#2171b5', '#6baed6', '#bdd7e7', '#eff3ff']
 
     if selected_group == 'All':
         # Compute the total number of crimes for each crime group and quarter
