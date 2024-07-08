@@ -56,8 +56,8 @@ if selected_district:
 selected_groups = st.multiselect("בחר את קבוצות הפשיעה", data['StatisticCrimeGroup'].unique(), default=['עבירות כלפי הרכוש'])
 if selected_groups:
     filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)]
-    fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
-                       title=f'התפלגות העבירות הנ"ל')
+    fig = px.bar(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
+                 title=f'התפלגות העבירות הנ"ל')
     fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
     fig.update_layout(barmode='relative', xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
                       legend_title_text='קבוצת העבירות', title_x=0.8)
