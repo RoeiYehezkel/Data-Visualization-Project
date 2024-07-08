@@ -42,7 +42,15 @@ st.markdown(
 )
 
 # Title and subheader with right-to-left text direction
-st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', """
+    <style>
+    .css-1inwz65.e16fv1kl2 {
+        text-align: right;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+
 selected_district = st.selectbox("Select Police District", g['PoliceDistrict'].unique())
 if selected_district:
     district_data = g[g['PoliceDistrict'] == selected_district]
