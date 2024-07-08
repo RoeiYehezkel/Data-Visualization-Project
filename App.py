@@ -46,7 +46,7 @@ st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בי
 selected_district = st.selectbox("Select Police District", g['PoliceDistrict'].unique())
 if selected_district:
     district_data = g[g['PoliceDistrict'] == selected_district]
-    color_sequence_district = ['#7fc97f', '#beaed4', '#fdc086']
+    color_sequence_district = ['#7570b3', '#d95f02', '#1b9e77']
     fig = px.line(district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
                       title=f'מגמות התיקים שנפתחו ב{selected_district}',
                       color_discrete_sequence=color_sequence_district)
