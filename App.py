@@ -139,7 +139,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
 
     # Update layout to show x-axis in all facets
     fig.for_each_xaxis(lambda xaxis: xaxis.update(showticklabels=True, title_text='אחוז הפשיעה'))
-    fig.update_layout(title_x=0.45)
+    fig.update_layout(title_x=0.6)
     st.plotly_chart(fig, use_container_width=True)
 
 # Example usage
