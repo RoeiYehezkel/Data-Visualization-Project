@@ -29,7 +29,11 @@ df = pd.read_csv(preprocessed_data)
 
 
 # Custom CSS to set text direction to right-to-left
-st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>',unsafe_allow_html=True)
+st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>' '''<style>
+    .css-1inwz65.e16fv1kl2 {
+        text-align: right;
+    }
+    </style>''',unsafe_allow_html=True)
 
 
 # Create two columns
