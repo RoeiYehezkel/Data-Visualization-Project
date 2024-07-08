@@ -47,7 +47,7 @@ selected_district = st.selectbox("Select Police District", g['PoliceDistrict'].u
 if selected_district:
     district_data = g[g['PoliceDistrict'] == selected_district]
     color_sequence_district = ['#7fc97f', '#beaed4', '#fdc086']
-        fig = px.line(district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
+    fig = px.line(district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
                       title=f'מגמות התיקים שנפתחו ב{selected_district}',
                       color_discrete_sequence=color_sequence_district)
     fig.update_layout(yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.65, legend_title_text='מרחב')
