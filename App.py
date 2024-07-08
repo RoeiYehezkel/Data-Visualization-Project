@@ -50,7 +50,7 @@ if selected_district:
     fig = px.line(district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
                       title=f'מגמות התיקים שנפתחו ב{selected_district}',
                       color_discrete_sequence=color_sequence_district)
-    fig.update_layout(yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.65, legend_title_text='מרחב')
+    fig.update_layout(yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב')
     st.plotly_chart(fig)
 
 #Crime Group Distribution
@@ -61,7 +61,7 @@ if selected_groups:
                        title=f'התפלגות העבירות הנ"ל')
     fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
     fig.update_layout(barmode='relative', xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
-                      legend_title_text='קבוצת העבירות', title_x=0.75)
+                      legend_title_text='קבוצת העבירות', title_x=0.85)
     st.plotly_chart(fig)
 
 
