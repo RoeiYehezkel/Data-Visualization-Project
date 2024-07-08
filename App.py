@@ -3,8 +3,9 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import matplotlib
+# Loading the data
 import os
-import plotly.graph_objects as go
+
 
 
 st.set_page_config(layout="wide")
@@ -51,6 +52,17 @@ if selected_district:
     st.plotly_chart(fig)
 
 #Crime Group Distribution
+selected_groups = st.multiselect("Select Crime Groups", data['StatisticCrimeGroup'].unique(), default=['עבירות כלפי הרכוש'])
+if selected_groups:
+    filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)]
+    fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
+                       title=f'התפלגות העבירות הנ"ל')
+    fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
+    fig.update_layout(barmode='relative', xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
+                      legend_title_text='קבוצת העבירות', title_x=0.75)
+    st.plotly_chart(fig)
+
+
 def plot_relative_crime_by_religion_and_group(df, data, selected_group):
     # Merge the two dataframes on StatisticCrimeGroup, Cluster, and Quarter
     merged_df = pd.merge(df, data, on=['StatisticCrimeGroup', 'Quarter'], suffixes=('_original', '_norm'))
