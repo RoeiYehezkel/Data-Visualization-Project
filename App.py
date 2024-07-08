@@ -79,7 +79,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
     # Define color sequence with varying saturation levels of blue
     color_sequence = ['#cc4c02', '#fe9929', '#fed98e', '#ffffd4']
 
-    if selected_group == 'All':
+    if selected_group == 'כלל העבירות':
         # Compute the total number of crimes for each crime group and quarter
         total_crimes_per_group = merged_df.groupby(['StatisticCrimeGroup', 'Quarter'])['TikimSum_original'].sum().reset_index()
         total_crimes_per_group.columns = ['StatisticCrimeGroup', 'Quarter', 'TotalTikimSum']
@@ -149,7 +149,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
 # Get unique quarters from the dataframe
 unique_quarters = df['Quarter'].unique()
 # Add a dropdown to select the crime group
-crime_groups = sorted(['All'] + df['StatisticCrimeGroup'].unique().tolist())
+crime_groups = sorted(['כלל העבירות'] + df['StatisticCrimeGroup'].unique().tolist())
 selected_group = st.selectbox('Select Crime Group', crime_groups)
 
 # Call the function to plot the chart
