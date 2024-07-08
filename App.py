@@ -103,7 +103,7 @@ if selected_group == 'All':
             height=2500,
         )
 
-    else:
+else:
         # Filter the dataframe by selected crime group
         filtered_df = merged_df[merged_df['StatisticCrimeGroup'] == selected_group]
 
