@@ -42,14 +42,16 @@ st.markdown(
 )
 
 # Title and subheader with right-to-left text direction
-st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', """
+st.markdown(
+    """
     <style>
     .css-1inwz65.e16fv1kl2 {
         text-align: right;
     }
     </style>
-    """, unsafe_allow_html=True)
-
+    """,
+    unsafe_allow_html=True
+)
 
 selected_district = st.selectbox("Select Police District", g['PoliceDistrict'].unique())
 if selected_district:
@@ -60,7 +62,6 @@ if selected_district:
                       color_discrete_sequence=color_sequence_district)
     fig.update_layout(yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב')
     st.plotly_chart(fig)
-
 #Crime Group Distribution
 selected_groups = st.multiselect("Select Crime Groups", data['StatisticCrimeGroup'].unique(), default=['עבירות כלפי הרכוש'])
 if selected_groups:
