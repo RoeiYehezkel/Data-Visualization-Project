@@ -37,7 +37,7 @@ st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בי
 
 
 # Create two columns
-col1, col2 = st.columns([3, 1])
+col1, col2 = st.columns([2, 1])
 
 with col2:
     selected_district = st.selectbox("בחר את מחוז המשטרה", g['PoliceDistrict'].unique())
