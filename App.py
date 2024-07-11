@@ -55,7 +55,7 @@ fig_all_districts.update_layout(
     yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מחוז משטרה'
 )
 fig_all_districts.update_traces(
-    hovertemplate='<br>רבעון=%{x}<br>סכום התיקים=%{y}'
+    hovertemplate='<br>%{x}<br>סכום התיקים=%{y}'
 )
 st.plotly_chart(fig_all_districts)
 
@@ -73,7 +73,7 @@ if selected_district:
         yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב'
     )
     fig.update_traces(
-        hovertemplate='<br>רבעון=%{x}<br>סכום התיקים=%{y}'
+        hovertemplate='<br>%{x}<br>סכום התיקים=%{y}'
     )
     st.plotly_chart(fig)
 #Crime Group Distribution
