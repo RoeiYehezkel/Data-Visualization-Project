@@ -86,14 +86,19 @@ if selected_district:
 all_crime_groups = data['StatisticCrimeGroup'].unique()
 
 selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_crime_groups, default=all_crime_groups)
-if selected_groups:
+
+# Use the entire dataset if no group is selected
+if not selected_groups:
+    filtered_data = data
+else:
     filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)]
-    fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
-                 title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
-    fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
-    fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
-                      legend_title_text='קבוצת העבירות', title_x=0.7, height=500)
-    st.plotly_chart(fig)
+
+fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
+             title=f'התפלגות העבירות הנ"ל')
+fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
+fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
+                  legend_title_text='קבוצת העבירות', title_x=0.7, heoght=500)
+st.plotly_chart(fig)
 
 
 def plot_relative_crime_by_religion_and_group(df, data, selected_group):
