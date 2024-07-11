@@ -156,6 +156,11 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      facet_col_wrap=6,
                      height=800,  # Set the height to fit the page
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
+                        # Update hovertemplate to remove unwanted labels and keep only the values
+        fig.update_traces(
+            hovertemplate='<b>%{y}</b><br>אחוז הפשיעה: %{x}<br>כמות התיקים: %{customdata[1]:,}',
+            customdata=np.stack((relative_crime_data['RelativeTikimSum'], relative_crime_data['TikimSum_original']), axis=-1)
+        )
 
     else:
         # Filter the dataframe by selected crime group
