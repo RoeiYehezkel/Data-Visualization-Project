@@ -141,7 +141,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
         df_merged['RelativeTikimSum'] = df_merged['TikimSum_original'] / df_merged['TotalTikimSum']
 
         # Group by crime group, religious level, and year
-        relative_crime_data = df_merged.groupby(['StatisticCrimeGroup', 'Religious level', 'Year']).agg({'RelativeTikimSum': 'um', 'TikimSum_original': 'um'}).reset_index()
+        relative_crime_data = df_merged.groupby(['StatisticCrimeGroup', 'Religious level', 'Year']).agg({'RelativeTikimSum': 'sum', 'TikimSum_original': 'sum'}).reset_index()
         
         # Create a new column with the TikimSum_original values for each group
         relative_crime_data['TikimSum_original_per_group'] = relative_crime_data['TikimSum_original']
