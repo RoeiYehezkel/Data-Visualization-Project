@@ -44,19 +44,37 @@ st.markdown(
 )
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>',unsafe_allow_html=True)
 
-fig_all_districts = px.line(aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
-                            title='מגמות התיקים שנפתחו לפי מחוזות משטרה')
-fig_all_districts.update_layout(yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מחוז משטרה')
+color_sequence_district = ['#a65628', '#377eb8', '#ff7f00', '#984ea3', '#ff7f00', '#e41a1c', '#377eb8']
+fig_all_districts = px.line(
+    aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
+    title='מגמות התיקים שנפתחו לפי מחוזות משטרה',
+    color_discrete_sequence=color_sequence_district,
+    hover_data={'PoliceDistrict': False, 'Quarter': True, 'TikimSum': ':.3s'}
+)
+fig_all_districts.update_layout(
+    yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מחוז משטרה'
+)
+fig_all_districts.update_traces(
+    hovertemplate='<br>רבעון=%{x}<br>סכום התיקים=%{y}'
+)
 st.plotly_chart(fig_all_districts)
 
+# Original first graph with selectbox
 selected_district = st.selectbox("בחר את מחוז המשטרה", g['PoliceDistrict'].unique())
 if selected_district:
     district_data = g[g['PoliceDistrict'] == selected_district]
-    color_sequence_district = ['#7570b3', '#d95f02', '#1b9e77']
-    fig = px.line(district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
-                      title=f'מגמות התיקים שנפתחו ב{selected_district}',
-                      color_discrete_sequence=color_sequence_district)
-    fig.update_layout(yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב')
+    fig = px.line(
+        district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
+        title=f'מגמות התיקים שנפתחו ב{selected_district}',
+        color_discrete_sequence=color_sequence_district,
+        hover_data={'PoliceMerhav': True, 'Quarter': True, 'TikimSum': ':.3s'}
+    )
+    fig.update_layout(
+        yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב'
+    )
+    fig.update_traces(
+        hovertemplate='<br>רבעון=%{x}<br>סכום התיקים=%{y}'
+    )
     st.plotly_chart(fig)
 #Crime Group Distribution
 selected_groups = st.multiselect("בחר את קבוצות הפשיעה", data['StatisticCrimeGroup'].unique(), default=['עבירות כלפי הרכוש'])
