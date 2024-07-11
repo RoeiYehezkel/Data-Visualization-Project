@@ -141,25 +141,28 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
         df_merged['RelativeTikimSum'] = df_merged['TikimSum_original'] / df_merged['TotalTikimSum']
 
         # Group by crime group, religious level, and year
-        relative_crime_data = df_merged.groupby(['StatisticCrimeGroup', 'Religious level', 'Year']).agg({'RelativeTikimSum': 'sum',
-            'TikimSum_original': 'sum'}).reset_index()
-
+        relative_crime_data = df_merged.groupby(['StatisticCrimeGroup', 'Religious level', 'Year']).agg({'RelativeTikimSum': 'um', 'TikimSum_original': 'um'}).reset_index()
+        
+        # Create a new column with the TikimSum_original values for each group
+        relative_crime_data['TikimSum_original_per_group'] = relative_crime_data['TikimSum_original']
+        
         # Plot the relative bar chart with small multiples for each year
         fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeGroup', color='Religious level',
                      title=f'הקשר בין רמת הדתיות לרמת הפשיעה לפי קבוצת עבירה',
                      labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'RelativeTikimSum': 'אחוז הפשיעה', 'Religious level': 'רמת דתיות', 'TikimSum_original':'כמות התיקים'},
                      barmode='stack',  # Use stacked bar mode
-                     hover_data={'RelativeTikimSum': False, 'TikimSum_original': True},
+                     hover_data={'RelativeTikimSum': False},
                      facet_col='Year',
                      color_discrete_sequence=color_sequence,
                      category_orders={'Year': sorted(unique_years), 'Religious level': desired_order},
                      facet_col_wrap=6,
                      height=800,  # Set the height to fit the page
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
-                        # Update hovertemplate to remove unwanted labels and keep only the values
+        
+        # Update hovertemplate to display TikimSum_original_per_group
         fig.update_traces(
-            hovertemplate='<b>%{y}</b><br>אחוז הפשיעה: %{x}<br>כמות התיקים: %{customdata[1]:,}',
-            customdata=np.stack((relative_crime_data['RelativeTikimSum'], relative_crime_data['TikimSum_original']), axis=-1)
+            hovertemplate='<b>%{y}</b><br>אחוז הפשיעה: %{x}<br>כמות התיקים: %{customdata[0]:,.0f}',
+            customdata=np.stack((relative_crime_data['TikimSum_original_per_group']), axis=-1)
         )
 
     else:
