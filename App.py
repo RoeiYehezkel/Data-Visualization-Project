@@ -131,27 +131,24 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
 
     if selected_group == 'כלל העבירות':
         # Compute the total number of crimes for each crime group and year
-        total_crimes_per_group = merged_df.groupby(['StatisticCrimeGroup', 'Year'])['TikimSum_original'].sum().reset_index()
-        total_crimes_per_group.columns = ['StatisticCrimeGroup', 'Year', 'TotalTikimSum']
+        total_crimes_per_group = merged_df.groupby(['StatisticCrimeGroup', 'Religious level', 'Year'])['TikimSum_original'].sum().reset_index()
+        total_crimes_per_group.columns = ['StatisticCrimeGroup', 'Religious level', 'Year', 'TikimSum']
 
         # Merge the total crimes with the merged dataframe
-        df_merged = pd.merge(merged_df, total_crimes_per_group, on=['StatisticCrimeGroup', 'Year'])
+        df_merged = pd.merge(merged_df, total_crimes_per_group, on=['StatisticCrimeGroup', 'Religious level', 'Year'])
 
         # Compute the relative number of crimes for each religious level within each crime group
-        df_merged['RelativeTikimSum'] = df_merged['TikimSum_original'] / df_merged['TotalTikimSum']
+        df_merged['RelativeTikimSum'] = df_merged['TikimSum_original'] / df_merged.groupby(['StatisticCrimeGroup', 'Year'])['TikimSum_original'].transform('sum')
 
         # Group by crime group, religious level, and year
-        relative_crime_data = df_merged.groupby(['StatisticCrimeGroup', 'Religious level', 'Year']).agg({'RelativeTikimSum': 'sum', 'TikimSum_original': 'sum'}).reset_index()
-        
-        # Create a new column with the TikimSum_original values for each group
-        relative_crime_data['TikimSum_original_per_group'] = relative_crime_data['TikimSum_original']
+        relative_crime_data = df_merged.groupby(['StatisticCrimeGroup', 'Religious level', 'Year']).agg({'RelativeTikimSum': 'sum', 'TikimSum': 'sum'}).reset_index()
         
         # Plot the relative bar chart with small multiples for each year
         fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeGroup', color='Religious level',
                      title=f'הקשר בין רמת הדתיות לרמת הפשיעה לפי קבוצת עבירה',
-                     labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'RelativeTikimSum': 'אחוז הפשיעה', 'Religious level': 'רמת דתיות', 'TikimSum_original':'כמות התיקים'},
+                     labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'RelativeTikimSum': 'אחוז הפשיעה', 'Religious level': 'רמת דתיות', 'TikimSum': 'כמות התיקים'},
                      barmode='stack',  # Use stacked bar mode
-                     hover_data={'RelativeTikimSum': False},
+                     hover_data={'RelativeTikimSum': False, 'TikimSum': True},
                      facet_col='Year',
                      color_discrete_sequence=color_sequence,
                      category_orders={'Year': sorted(df['Year'].unique()), 'Religious level': desired_order},
@@ -159,10 +156,10 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      height=800,  # Set the height to fit the page
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
         
-        # Update hovertemplate to display TikimSum_original_per_group
+        # Update hovertemplate to display TikimSum for each group
         fig.update_traces(
             hovertemplate='<b>%{y}</b><br>אחוז הפשיעה: %{x}<br>כמות התיקים: %{customdata[0]:,.0f}',
-            customdata=relative_crime_data[['TikimSum_original_per_group']].values
+            customdata=relative_crime_data[['TikimSum']].values
         )
     else:
         # Filter the dataframe by selected crime group
