@@ -4,6 +4,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import matplotlib
 import plotly.graph_objects as go
+import numpy as np
 # Loading the data
 import os
 
