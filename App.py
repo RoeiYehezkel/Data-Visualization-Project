@@ -44,7 +44,7 @@ st.markdown(
 )
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>',unsafe_allow_html=True)
 
-color_sequence_district = ['#a65628', '#377eb8', '#ff7f00', '#984ea3', '#4daf4a', '#e41a1c', '#ffff33']
+color_sequence_district = ['#a65628', '#377eb8', '#ff7f00', '#984ea3', '#66c2a4', '#e41a1c', '#fec44f']
 fig_all_districts = px.line(
     aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
     title='מגמות התיקים שנפתחו לפי מחוזות משטרה',
