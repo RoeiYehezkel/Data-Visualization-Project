@@ -93,16 +93,6 @@ if 'selected_groups' not in st.session_state:
 selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=st.session_state.selected_groups)
 st.session_state.selected_groups = selected_groups
 
-# Select/Deselect All Button
-col1, col2 = st.columns([3, 1])
-with col2:
-    if st.button("בחר הכל"):
-        st.session_state.selected_groups = list(all_groups)
-        selected_groups = list(all_groups)
-    if st.button("נקה הכל"):
-        st.session_state.selected_groups = []
-        selected_groups = []
-
 # Function to plot histogram/bar plot
 def plot_histogram(data, selected_groups):
     filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)]
