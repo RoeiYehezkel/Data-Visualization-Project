@@ -76,16 +76,37 @@ if selected_district:
     hovertemplate='%{x}<br>סכום התיקים-%{y:,}'
 )
     st.plotly_chart(fig)
-#Crime Group Distribution
-selected_groups = st.multiselect("בחר את קבוצות הפשיעה", data['StatisticCrimeGroup'].unique(), default=['עבירות כלפי הרכוש'])
-if selected_groups:
+# Function to plot histogram/bar plot
+def plot_histogram(data, selected_groups):
     filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)]
-    fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
-                 title=f'התפלגות העבירות הנ"ל')
+    fig = px.histogram(
+        filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
+        title='התפלגות העבירות הנ"ל לפי האשכול הכלכלי-חברתי של היישוב'
+    )
     fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
-    fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
-                      legend_title_text='קבוצת העבירות', title_x=0.8)
+    fig.update_layout(
+        barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
+        title_x=0.8
+    )
+    if len(selected_groups) == 1:
+        fig.update_layout(showlegend=False)
     st.plotly_chart(fig)
+
+# Title
+st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
+
+# Crime Group Distribution
+all_groups = data['StatisticCrimeGroup'].unique()
+selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=list(all_groups))
+
+# Select/Deselect All Button
+if st.button("בחר הכל"):
+    selected_groups = list(all_groups)
+if st.button("נקה הכל"):
+    selected_groups = []
+
+# Plot the histogram
+plot_histogram(data, selected_groups)
 
 
 def plot_relative_crime_by_religion_and_group(df, data, selected_group):
