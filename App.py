@@ -38,6 +38,12 @@ st.markdown(
         direction: rtl;
         text-align: right;
     }
+    .inline-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 10px;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -77,24 +83,25 @@ if selected_district:
 )
     st.plotly_chart(fig)
 # Crime Group Distribution
-# Crime Group Distribution
 all_groups = data['StatisticCrimeGroup'].unique()
 
 # Initialize session state for selected groups
 if 'selected_groups' not in st.session_state:
     st.session_state.selected_groups = list(all_groups)
 
+# Multiselect for crime groups
+selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=st.session_state.selected_groups)
+st.session_state.selected_groups = selected_groups
+
 # Select/Deselect All Button
 col1, col2 = st.columns([3, 1])
 with col2:
     if st.button("בחר הכל"):
         st.session_state.selected_groups = list(all_groups)
+        selected_groups = list(all_groups)
     if st.button("נקה הכל"):
         st.session_state.selected_groups = []
-
-# Multiselect for crime groups
-selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=st.session_state.selected_groups)
-st.session_state.selected_groups = selected_groups
+        selected_groups = []
 
 # Function to plot histogram/bar plot
 def plot_histogram(data, selected_groups):
@@ -106,7 +113,7 @@ def plot_histogram(data, selected_groups):
     fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
     fig.update_layout(
         barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
-        title_x=0.8
+        title_x=0.8, height=800
     )
     if len(selected_groups) == 1:
         fig.update_layout(showlegend=False)
