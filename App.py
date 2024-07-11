@@ -152,8 +152,8 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      facet_col='Year',
                      color_discrete_sequence=color_sequence,
                      category_orders={'Year': sorted(unique_years), 'Religious level': desired_order},
-                     facet_col_wrap=4,
-                     height=2500,  # Set the height to fit the page
+                     facet_col_wrap=6,
+                     height=800,  # Set the height to fit the page
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
     else:
         # Filter the dataframe by selected crime group
@@ -183,7 +183,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      color_discrete_sequence=color_sequence,
                      category_orders={'Year': sorted(unique_years), 'Religious level': desired_order},
                      facet_col_wrap=6,
-                     height=2000,  # Set the height to fit the page
+                     height=800,  # Set the height to fit the page
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
 
     # Update layout to show x-axis in all facets
