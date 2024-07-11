@@ -147,9 +147,9 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
         # Plot the relative bar chart with small multiples for each year
         fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeGroup', color='Religious level',
                      title=f'הקשר בין רמת הדתיות לרמת הפשיעה לפי קבוצת עבירה',
-                     labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'RelativeTikimSum': 'אחוז הפשיעה', 'Religious level': 'רמת דתיות'},
+                     labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'RelativeTikimSum': 'חלק הפשיעה היחסי', 'Religious level': 'רמת דתיות', 'TikimSum_original':'כמות התיקים'},
                      barmode='stack',  # Use stacked bar mode
-                     hover_data=['RelativeTikimSum', 'TikimSum_original'],
+                     hover_data={'StatisticCrimeGroup': False, 'Year': False, 'Religious level': False, 'TikimSum_original': True, 'RelativeTikimSum': True},
                      facet_col='Year',
                      color_discrete_sequence=color_sequence,
                      category_orders={'Year': sorted(unique_years), 'Religious level': desired_order},
@@ -177,9 +177,9 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
         # Plot the relative bar chart with small multiples for each year
         fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeType', color='Religious level',
                      title=f'הקשר בין מידת הדתיות של היישוב לרמת הפשיעה לפי {selected_group}',
-                     labels={'StatisticCrimeType': 'סוג עבירה', 'RelativeTikimSum': 'אחוז הפשיעה', 'Religious level': 'רמת דתיות'},
+                     labels={'StatisticCrimeType': 'עבירה', 'RelativeTikimSum': 'חלק הפשיעה היחסי', 'Religious level': 'רמת דתיות', 'TikimSum_original':'כמות התיקים'},
                      barmode='stack',  # Use stacked bar mode
-                     hover_data=['RelativeTikimSum', 'TikimSum_original'],
+                     hover_data={'StatisticCrimeType': False, 'Year': False, 'Religious level': False, 'TikimSum_original': True, 'RelativeTikimSum': True},
                      facet_col='Year',
                      color_discrete_sequence=color_sequence,
                      category_orders={'Year': sorted(unique_years), 'Religious level': desired_order},
