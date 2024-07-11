@@ -162,7 +162,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
         # Update hovertemplate to display TikimSum_original_per_group
         fig.update_traces(
             hovertemplate='<b>%{y}</b><br>אחוז הפשיעה: %{x}<br>כמות התיקים: %{customdata[0]:,.0f}',
-            customdata=np.stack((relative_crime_data['TikimSum_original_per_group']), axis=-1)
+            customdata=np.stack((relative_crime_data['TikimSum_original_per_group'].values), axis=-1)
         )
 
     else:
