@@ -193,7 +193,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
 
         # Update hovertemplate to remove unwanted labels and keep only the values
         fig.update_traces(
-            hovertemplate='<b>%{y}</b><br>אחוז הפשיעה: %{x}<br>כמות התיקים: %{customdata[1]:,}'
+            hovertemplate='<b>%{y}</b><br>אחוז הפשיעה: %{x}<br>כמות התיקים: %{z}'
         )
 
     # Update layout to show x-axis in all facets
