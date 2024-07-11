@@ -87,13 +87,13 @@ if 'selected_groups' not in st.session_state:
 # Select/Deselect All Buttons
 col1, col2 = st.columns([9, 1])
 with col1:
-    selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=st.session_state['selected_groups'])
+    selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=st.session_state['selected_groups'], key='multiselect')
 with col2:
     st.markdown(
         """
         <div class="inline-buttons">
-            <button onclick="selectAll()">בחר הכל</button>
-            <button onclick="deselectAll()">נקה הכל</button>
+            <button id="select-all-btn">בחר הכל</button>
+            <button id="deselect-all-btn">נקה הכל</button>
         </div>
         """,
         unsafe_allow_html=True
@@ -103,14 +103,12 @@ with col2:
 st.markdown(
     """
     <script>
-    function selectAll() {
-        const selected = Array.from(document.querySelectorAll('.stMultiSelect [role="option"]'));
-        selected.forEach(el => el.click());
-    }
-    function deselectAll() {
-        const selected = Array.from(document.querySelectorAll('.stMultiSelect [role="option"][aria-selected="true"]'));
-        selected.forEach(el => el.click());
-    }
+    document.getElementById('select-all-btn').addEventListener('click', function() {
+        st.session_state.multiselect = [...all_groups];
+    });
+    document.getElementById('deselect-all-btn').addEventListener('click', function() {
+        st.session_state.multiselect = [];
+    });
     </script>
     """,
     unsafe_allow_html=True
