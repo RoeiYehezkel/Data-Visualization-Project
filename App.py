@@ -49,7 +49,7 @@ fig_all_districts = px.line(
     aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
     title='מגמות התיקים שנפתחו לפי מחוזות משטרה',
     color_discrete_sequence=color_sequence_district,
-    hover_data={'PoliceDistrict': False, 'Quarter': True, 'TikimSum': ':.3s'}
+    hover_data={'Quarter': True, 'TikimSum': ':.3s'}
 )
 fig_all_districts.update_layout(
     yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מחוז משטרה'
@@ -67,7 +67,7 @@ if selected_district:
         district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
         title=f'מגמות התיקים שנפתחו ב{selected_district}',
         color_discrete_sequence=color_sequence_district,
-        hover_data={'PoliceMerhav': True, 'Quarter': True, 'TikimSum': ':.3s'}
+        hover_data={'Quarter': True, 'TikimSum': ':.3s'}
     )
     fig.update_layout(
         yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב'
