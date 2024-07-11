@@ -122,27 +122,40 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
     # Ensure Year is treated as a categorical variable with a specific order
     merged_df['Year'] = pd.Categorical(merged_df['Year'], ordered=True, categories=sorted(df['Year'].unique()))
     
-    # Set the order of the 'Religious level' column
+    # Set the order of the 'Religious level' column and use blue color saturation levels
     desired_order = ['חילונים', 'מסורתיים', 'דתיים', 'חרדים']
     merged_df['Religious level'] = pd.Categorical(merged_df['Religious level'], categories=desired_order, ordered=True)
     
-    # Define color sequence
+    # Define color sequence with varying saturation levels of blue
     color_sequence = ['#cc4c02', '#fe9929', '#fed98e', '#ffffd4']
 
     if selected_group == 'כלל העבירות':
-        # Group by StatisticCrimeGroup, Religious level, and Year
-        grouped = merged_df.groupby(['StatisticCrimeGroup', 'Religious level', 'Year']).agg({'TikimSum_original': 'sum'}).reset_index()
-        
-        # Plot
-        fig = px.bar(grouped, x='TikimSum', y='StatisticCrimeGroup', color='Religious level',
-                     title=f'הקשר בין רמת הדתיות לרמת הפשיעה לפי קבוצת עבירה',
-                     labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'TikimSum_original': 'כמות התיקים', 'Religious level': 'רמת דתיות'},
-                     barmode='stack', facet_col='Year',
-                     color_discrete_sequence=color_sequence,
-                     category_orders={'Year': sorted(df['Year'].unique()), 'Religious level': desired_order},
-                     facet_col_wrap=6, height=800, facet_row_spacing=0.05)
+        # Compute the total number of crimes for each crime group and year
+        total_crimes_per_group = merged_df.groupby(['StatisticCrimeGroup', 'Year'])['TikimSum_original'].sum().reset_index()
+        total_crimes_per_group.columns = ['StatisticCrimeGroup', 'Year', 'TotalTikimSum']
 
-        fig.update_traces(hovertemplate='<b>%{y}</b><br>כמות התיקים: %{x:,}')
+        # Merge the total crimes with the merged dataframe
+        df_merged = pd.merge(merged_df, total_crimes_per_group, on=['StatisticCrimeGroup', 'Year'])
+
+        # Compute the relative number of crimes for each religious level within each crime group
+        df_merged['RelativeTikimSum'] = df_merged['TikimSum_original'] / df_merged['TotalTikimSum']
+
+        # Group by crime group, religious level, and year
+        relative_crime_data = df_merged.groupby(['StatisticCrimeGroup', 'Religious level', 'Year']).agg({'RelativeTikimSum': 'sum',
+            'TikimSum_original': 'sum'}).reset_index()
+
+        # Plot the relative bar chart with small multiples for each year
+        fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeGroup', color='Religious level',
+                     title=f'הקשר בין רמת הדתיות לרמת הפשיעה לפי קבוצת עבירה',
+                     labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'RelativeTikimSum': 'אחוז הפשיעה', 'Religious level': 'רמת דתיות'},
+                     barmode='stack',  # Use stacked bar mode
+                     hover_data=['RelativeTikimSum', 'TikimSum_original'],
+                     facet_col='Year',
+                     color_discrete_sequence=color_sequence,
+                     category_orders={'Year': sorted(unique_quarters), 'Religious level': desired_order},
+                     facet_col_wrap=6,
+                     height=800,  # Set the height to fit the page
+                     facet_row_spacing=0.05)  # Adjust row spacing if needed
     else:
         # Filter the dataframe by selected crime group
         filtered_df = merged_df[merged_df['StatisticCrimeGroup'] == selected_group]
@@ -164,21 +177,15 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
         # Plot the relative bar chart with small multiples for each year
         fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeType', color='Religious level',
                      title=f'הקשר בין מידת הדתיות של היישוב לרמת הפשיעה לפי {selected_group}',
-                     labels={'StatisticCrimeType': 'סוג עבירה', 'RelativeTikimSum': 'אחוז הפשיעה', 'Religious level': 'רמת דתיות', 'TikimSum_original':'כמות התיקים'},
+                     labels={'StatisticCrimeType': 'סוג עבירה', 'RelativeTikimSum': 'אחוז הפשיעה', 'Religious level': 'רמת דתיות'},
                      barmode='stack',  # Use stacked bar mode
-                     hover_data={'RelativeTikimSum': False, 'TikimSum_original': False},
+                     hover_data=['RelativeTikimSum', 'TikimSum_original'],
                      facet_col='Year',
                      color_discrete_sequence=color_sequence,
-                     category_orders={'Year': sorted(unique_years), 'Religious level': desired_order},
+                     category_orders={'Year': sorted(unique_quarters), 'Religious level': desired_order},
                      facet_col_wrap=6,
                      height=800,  # Set the height to fit the page
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
-
-        # Update hovertemplate to remove unwanted labels and keep only the values
-        fig.update_traces(
-            hovertemplate='<b>%{y}</b><br>אחוז הפשיעה: %{x}<br>כמות התיקים: %{customdata[1]:,}',
-            customdata=np.stack((relative_crime_data['RelativeTikimSum'], relative_crime_data['TikimSum_original']), axis=-1)
-        )
 
     # Update layout to show x-axis in all facets
     fig.for_each_xaxis(lambda xaxis: xaxis.update(showticklabels=True, title_text='אחוז הפשיעה'))
