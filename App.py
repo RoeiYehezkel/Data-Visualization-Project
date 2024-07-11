@@ -19,6 +19,8 @@ plt.rcParams['axes.titlepad'] = 20
 grouped_data=os.path.join(os.path.dirname(__file__), 'grouped_data.csv')
 g = pd.read_csv(grouped_data)
 
+# Aggregating data by Quarter and PoliceDistrict
+aggregated_data = g.groupby(['Quarter', 'PoliceDistrict'], as_index=False).sum()
 
 grouped_data_by_cluster=os.path.join(os.path.dirname(__file__), 'grouped_data_by_cluster.csv')
 data = pd.read_csv(grouped_data_by_cluster)
@@ -42,7 +44,7 @@ st.markdown(
 )
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>',unsafe_allow_html=True)
 
-fig_all_districts = px.line(g, x='Quarter', y='TikimSum', color='PoliceDistrict',
+fig_all_districts = px.line(aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
                             title='מגמות התיקים שנפתחו לפי מחוזות משטרה')
 fig_all_districts.update_layout(yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מחוז משטרה')
 st.plotly_chart(fig_all_districts)
