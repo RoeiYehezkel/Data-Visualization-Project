@@ -77,31 +77,47 @@ if selected_district:
 )
     st.plotly_chart(fig)
 # Crime Group Distribution
+# Crime Group Distribution
 all_groups = data['StatisticCrimeGroup'].unique()
-selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=list(all_groups))
 
-# Buttons for Select/Deselect All
+# Initialize session state for selected groups
+if 'selected_groups' not in st.session_state:
+    st.session_state['selected_groups'] = list(all_groups)
+
+# Select/Deselect All Buttons
 col1, col2 = st.columns([9, 1])
 with col1:
-    st.markdown("<div></div>", unsafe_allow_html=True)
+    selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=st.session_state['selected_groups'])
 with col2:
     st.markdown(
         """
         <div class="inline-buttons">
-            <button onclick="window.location.reload();">נקה הכל</button>
-            <button onclick="window.location.reload();">בחר הכל</button>
+            <button onclick="selectAll()">בחר הכל</button>
+            <button onclick="deselectAll()">נקה הכל</button>
         </div>
-        """, unsafe_allow_html=True
+        """,
+        unsafe_allow_html=True
     )
 
-if 'button_clicked' not in st.session_state:
-    st.session_state['button_clicked'] = None
+# JavaScript to handle button clicks
+st.markdown(
+    """
+    <script>
+    function selectAll() {
+        const selected = Array.from(document.querySelectorAll('.stMultiSelect [role="option"]'));
+        selected.forEach(el => el.click());
+    }
+    function deselectAll() {
+        const selected = Array.from(document.querySelectorAll('.stMultiSelect [role="option"][aria-selected="true"]'));
+        selected.forEach(el => el.click());
+    }
+    </script>
+    """,
+    unsafe_allow_html=True
+)
 
-# Check button clicks and update selected groups
-if st.session_state['button_clicked'] == 'select_all':
-    selected_groups = list(all_groups)
-elif st.session_state['button_clicked'] == 'deselect_all':
-    selected_groups = []
+# Update session state
+st.session_state['selected_groups'] = selected_groups
 
 # Function to plot histogram/bar plot
 def plot_histogram(data, selected_groups):
@@ -121,33 +137,6 @@ def plot_histogram(data, selected_groups):
 
 # Plot the histogram
 plot_histogram(data, selected_groups)
-
-# JavaScript to handle button clicks
-st.markdown(
-    """
-    <script>
-    const allButton = document.querySelector('.inline-buttons button:nth-child(2)');
-    const noneButton = document.querySelector('.inline-buttons button:nth-child(1)');
-
-    allButton.addEventListener('click', () => {
-        window.location.href = window.location.href + '&action=select_all';
-    });
-
-    noneButton.addEventListener('click', () => {
-        window.location.href = window.location.href + '&action=deselect_all';
-    });
-    </script>
-    """, unsafe_allow_html=True
-)
-
-# Handle URL actions
-query_params = st.experimental_get_query_params()
-if 'action' in query_params:
-    if query_params['action'][0] == 'select_all':
-        st.session_state['button_clicked'] = 'select_all'
-    elif query_params['action'][0] == 'deselect_all':
-        st.session_state['button_clicked'] = 'deselect_all'
-    st.experimental_set_query_params()  # Clear URL params
 
 
 def plot_relative_crime_by_religion_and_group(df, data, selected_group):
