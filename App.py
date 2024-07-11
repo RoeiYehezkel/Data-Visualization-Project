@@ -82,35 +82,18 @@ if selected_district:
     hovertemplate='%{x}<br>סכום התיקים-%{y:,}'
 )
     st.plotly_chart(fig)
-# Crime Group Distribution
-all_groups = data['StatisticCrimeGroup'].unique()
+# Assuming 'data' is your DataFrame
+all_crime_groups = data['StatisticCrimeGroup'].unique()
 
-# Initialize session state for selected groups
-if 'selected_groups' not in st.session_state:
-    st.session_state.selected_groups = list(all_groups)
-
-# Multiselect for crime groups
-selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=st.session_state.selected_groups)
-st.session_state.selected_groups = selected_groups
-
-# Function to plot histogram/bar plot
-def plot_histogram(data, selected_groups):
+selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_crime_groups, default=all_crime_groups)
+if selected_groups:
     filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)]
-    fig = px.histogram(
-        filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
-        title='התפלגות העבירות הנ"ל לפי האשכול הכלכלי-חברתי של היישוב'
-    )
+    fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
+                 title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
     fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
-    fig.update_layout(
-        barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
-        title_x=0.8, height=800
-    )
-    if len(selected_groups) == 1:
-        fig.update_layout(showlegend=False)
+    fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
+                      legend_title_text='קבוצת העבירות', title_x=0.7, height=500)
     st.plotly_chart(fig)
-
-# Plot the histogram
-plot_histogram(data, st.session_state.selected_groups)
 
 
 def plot_relative_crime_by_religion_and_group(df, data, selected_group):
