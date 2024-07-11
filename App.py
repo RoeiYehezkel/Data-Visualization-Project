@@ -87,7 +87,7 @@ if 'selected_groups' not in st.session_state:
 # Select/Deselect All Buttons
 col1, col2 = st.columns([9, 1])
 with col1:
-    selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=st.session_state['selected_groups'], key='multiselect')
+    selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=st.session_state['selected_groups'], key="multiselect")
 with col2:
     st.markdown(
         """
@@ -103,11 +103,22 @@ with col2:
 st.markdown(
     """
     <script>
-    document.getElementById('select-all-btn').addEventListener('click', function() {
-        st.session_state.multiselect = [...all_groups];
+    const multiselect = document.querySelector('[key="multiselect"]');
+    const selectAllBtn = document.getElementById("select-all-btn");
+    const deselectAllBtn = document.getElementById("deselect-all-btn");
+
+    selectAllBtn.addEventListener("click", () => {
+        multiselect.querySelectorAll("option").forEach((option) => {
+            option.selected = true;
+        });
+        multiselect.dispatchEvent(new Event("change"));
     });
-    document.getElementById('deselect-all-btn').addEventListener('click', function() {
-        st.session_state.multiselect = [];
+
+    deselectAllBtn.addEventListener("click", () => {
+        multiselect.querySelectorAll("option").forEach((option) => {
+            option.selected = false;
+        });
+        multiselect.dispatchEvent(new Event("change"));
     });
     </script>
     """,
