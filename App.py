@@ -94,7 +94,7 @@ filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)] if selec
 # Create the figure
 if not filtered_data.empty:
     fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
-                       title=f'התפלגות העבירות הנ"ל')
+                       title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
 else:
     # Create an empty figure with the same layout
     fig = go.Figure()
