@@ -82,20 +82,19 @@ all_groups = data['StatisticCrimeGroup'].unique()
 
 # Initialize session state for selected groups
 if 'selected_groups' not in st.session_state:
-    st.session_state['selected_groups'] = list(all_groups)
+    st.session_state.selected_groups = list(all_groups)
 
-# Select/Deselect All Buttons
+# Select/Deselect All Button
 col1, col2 = st.columns([3, 1])
 with col2:
-    select_all = st.button("בחר הכל")
-    deselect_all = st.button("נקה הכל")
+    if st.button("בחר הכל"):
+        st.session_state.selected_groups = list(all_groups)
+    if st.button("נקה הכל"):
+        st.session_state.selected_groups = []
 
-if select_all:
-    selected_groups = list(all_groups)
-elif deselect_all:
-    selected_groups = []
-else:
-    selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=list(all_groups))
+# Multiselect for crime groups
+selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=st.session_state.selected_groups)
+st.session_state.selected_groups = selected_groups
 
 # Function to plot histogram/bar plot
 def plot_histogram(data, selected_groups):
@@ -114,7 +113,7 @@ def plot_histogram(data, selected_groups):
     st.plotly_chart(fig)
 
 # Plot the histogram
-plot_histogram(data, selected_groups)
+plot_histogram(data, st.session_state.selected_groups)
 
 
 def plot_relative_crime_by_religion_and_group(df, data, selected_group):
