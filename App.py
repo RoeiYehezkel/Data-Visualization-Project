@@ -131,12 +131,12 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
 
     if selected_group == 'כלל העבירות':
         # Group by StatisticCrimeGroup, Religious level, and Year
-        grouped = merged_df.groupby(['StatisticCrimeGroup', 'Religious level', 'Year']).agg({'TikimSum': 'sum'}).reset_index()
+        grouped = merged_df.groupby(['StatisticCrimeGroup', 'Religious level', 'Year']).agg({'TikimSum_original': 'sum'}).reset_index()
         
         # Plot
         fig = px.bar(grouped, x='TikimSum', y='StatisticCrimeGroup', color='Religious level',
                      title=f'הקשר בין רמת הדתיות לרמת הפשיעה לפי קבוצת עבירה',
-                     labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'TikimSum': 'כמות התיקים', 'Religious level': 'רמת דתיות'},
+                     labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'TikimSum_original': 'כמות התיקים', 'Religious level': 'רמת דתיות'},
                      barmode='stack', facet_col='Year',
                      color_discrete_sequence=color_sequence,
                      category_orders={'Year': sorted(df['Year'].unique()), 'Religious level': desired_order},
