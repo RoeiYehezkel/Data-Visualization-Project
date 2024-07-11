@@ -99,11 +99,13 @@ else:
     # Create an empty figure with the same layout
     fig = go.Figure()
     fig.add_trace(go.Bar(x=[], y=[]))
-    fig.update_layout(title=f'התפלגות העבירות הנ"ל')
+    fig.update_layout(title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
 
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
-                  legend_title_text='קבוצת העבירות', title_x=0.8)
+                  legend_title_text='קבוצת העבירות', title_x=0.7, height=500)
+if len(selected_groups) == 1:
+        fig.update_layout(showlegend=False)
 
 st.plotly_chart(fig)
 
