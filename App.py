@@ -149,7 +149,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      title=f'הקשר בין רמת הדתיות לרמת הפשיעה לפי קבוצת עבירה',
                      labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'RelativeTikimSum': 'אחוז הפשיעה', 'Religious level': 'רמת דתיות', 'TikimSum_original':'כמות התיקים'},
                      barmode='stack',  # Use stacked bar mode
-                     hover_data={'RelativeTikimSum': False, 'TikimSum_original': False},
+                     hover_data={'RelativeTikimSum': False, 'TikimSum_original': True},
                      facet_col='Year',
                      color_discrete_sequence=color_sequence,
                      category_orders={'Year': sorted(unique_years), 'Religious level': desired_order},
