@@ -85,48 +85,17 @@ if 'selected_groups' not in st.session_state:
     st.session_state['selected_groups'] = list(all_groups)
 
 # Select/Deselect All Buttons
-col1, col2 = st.columns([9, 1])
-with col1:
-    selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=st.session_state['selected_groups'], key="multiselect")
+col1, col2 = st.columns([3, 1])
 with col2:
-    st.markdown(
-        """
-        <div class="inline-buttons">
-            <button id="select-all-btn">בחר הכל</button>
-            <button id="deselect-all-btn">נקה הכל</button>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    select_all = st.button("בחר הכל")
+    deselect_all = st.button("נקה הכל")
 
-# JavaScript to handle button clicks
-st.markdown(
-    """
-    <script>
-    const multiselect = document.querySelector('[key="multiselect"]');
-    const selectAllBtn = document.getElementById("select-all-btn");
-    const deselectAllBtn = document.getElementById("deselect-all-btn");
-
-    selectAllBtn.addEventListener("click", () => {
-        multiselect.querySelectorAll("option").forEach((option) => {
-            option.selected = true;
-        });
-        multiselect.dispatchEvent(new Event("change"));
-    });
-
-    deselectAllBtn.addEventListener("click", () => {
-        multiselect.querySelectorAll("option").forEach((option) => {
-            option.selected = false;
-        });
-        multiselect.dispatchEvent(new Event("change"));
-    });
-    </script>
-    """,
-    unsafe_allow_html=True
-)
-
-# Update session state
-st.session_state['selected_groups'] = selected_groups
+if select_all:
+    selected_groups = list(all_groups)
+elif deselect_all:
+    selected_groups = []
+else:
+    selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_groups, default=list(all_groups))
 
 # Function to plot histogram/bar plot
 def plot_histogram(data, selected_groups):
@@ -138,7 +107,7 @@ def plot_histogram(data, selected_groups):
     fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
     fig.update_layout(
         barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
-        title_x=0.7
+        title_x=0.8
     )
     if len(selected_groups) == 1:
         fig.update_layout(showlegend=False)
