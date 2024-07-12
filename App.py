@@ -5,18 +5,13 @@ import matplotlib.pyplot as plt
 import matplotlib
 import plotly.graph_objects as go
 import numpy as np
-# Loading the data
 import os
-
-
 
 st.set_page_config(layout="wide")
 # Fixing Hebrew text orientation
 matplotlib.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.family'] = 'Arial'
 plt.rcParams['axes.titlepad'] = 20
-
-
 
 grouped_data=os.path.join(os.path.dirname(__file__), 'grouped_data.csv')
 g = pd.read_csv(grouped_data)
@@ -27,10 +22,8 @@ aggregated_data = g.groupby(['Quarter', 'PoliceDistrict'], as_index=False).sum()
 grouped_data_by_cluster=os.path.join(os.path.dirname(__file__), 'grouped_data_by_cluster.csv')
 data = pd.read_csv(grouped_data_by_cluster)
 
-
 preprocessed_data=os.path.join(os.path.dirname(__file__), 'preprocessed_data.csv')
 df = pd.read_csv(preprocessed_data)
-
 
 # Custom CSS to set text direction to right-to-left
 st.markdown(
@@ -50,7 +43,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>',unsafe_allow_html=True)
+st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
 
 color_sequence_district = ['#a65628', '#377eb8', '#ff7f00', '#984ea3', '#66c2a4', '#e41a1c', '#fec44f']
 fig_all_districts = px.line(
@@ -65,11 +58,14 @@ fig_all_districts.update_layout(
 fig_all_districts.update_traces(
     hovertemplate='%{x}<br>סכום התיקים-%{y:,}'
 )
-st.plotly_chart(fig_all_districts)
 
-# Original first graph with selectbox
-selected_district = st.selectbox("בחר את מחוז המשטרה", g['PoliceDistrict'].unique())
-if selected_district:
+# Dropdown with an additional "אנא בחר מחוז" option
+options = ["אנא בחר מחוז"] + list(g['PoliceDistrict'].unique())
+selected_district = st.selectbox("בחר את מחוז המשטרה", options)
+
+if selected_district == "אנא בחר מחוז":
+    st.plotly_chart(fig_all_districts)
+else:
     district_data = g[g['PoliceDistrict'] == selected_district]
     fig = px.line(
         district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
@@ -81,8 +77,8 @@ if selected_district:
         yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב'
     )
     fig.update_traces(
-    hovertemplate='%{x}<br>סכום התיקים-%{y:,}'
-)
+        hovertemplate='%{x}<br>סכום התיקים-%{y:,}'
+    )
     st.plotly_chart(fig)
 # Assuming 'data' is your DataFrame
 all_crime_groups = data['StatisticCrimeGroup'].unique()
