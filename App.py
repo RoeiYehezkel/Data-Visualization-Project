@@ -92,7 +92,7 @@ filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)] if selec
 if not filtered_data.empty:
     fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
                        title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב', hover_data={'Cluster': False},
-                      labels={'StatisticCrimeGroup': 'קבוצת העבירה', 'sum of norm': 'סכום התיקים המנורמל'})
+                      labels={'StatisticCrimeGroup': 'קבוצת העבירה', 'sum of norm ': 'סכום התיקים המנורמל'})
 else:
     # Create an empty figure with the same layout
     fig = go.Figure()
