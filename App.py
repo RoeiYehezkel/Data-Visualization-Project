@@ -91,8 +91,7 @@ filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)] if selec
 # Create the figure
 if not filtered_data.empty:
     fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
-                       title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב', hover_data={'Cluster': False},
-                      labels={'StatisticCrimeGroup': 'קבוצת העבירה'})
+                       title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב', hover_data={'Cluster': False})
 else:
     # Create an empty figure with the same layout
     fig = go.Figure()
@@ -102,7 +101,7 @@ else:
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
                   legend_title_text='קבוצת העבירות', title_x=0.7, height=500)
-fig_all_districts.update_traces(
+fig.update_traces(
     hovertemplate='%קבוצת העבירה={x}<br>סכום התיקים המנורמל=-%{y:,}'
 )
 if len(selected_groups) == 1:
