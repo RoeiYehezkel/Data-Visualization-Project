@@ -56,7 +56,7 @@ fig_all_districts.update_layout(
     yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מחוז משטרה'
 )
 fig_all_districts.update_traces(
-    hovertemplate='%{x}<br>סכום התיקים-%{y:,}'
+    hovertemplate='%{x}<br>סכום התיקים=%{y:,}'
 )
 
 # Dropdown with an additional "אנא בחר מחוז" option
@@ -102,7 +102,7 @@ fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
                   legend_title_text='קבוצת העבירות', title_x=0.7, height=500)
 fig.update_traces(
-    hovertemplate='<div style="text-align: right;">קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=-%{y:,}</div>'
+    hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}'
 )
 if len(selected_groups) == 1:
         fig.update_layout(showlegend=False)
