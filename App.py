@@ -61,7 +61,7 @@ fig_all_districts.update_traces(
     hovertemplate='%{x}<br>סכום התיקים=%{y:,}'
 )
 
-# Dropdown with an additional "אנא בחר מחוז" option
+# Dropdown with an additional "כלל המחוזות" option
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
 selected_district = st.selectbox("בחר את מחוז המשטרה", options)
 
@@ -81,7 +81,7 @@ else:
         yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב'
     )
     fig.update_traces(
-        hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז={total_tikim_sum:,}'
+        hovertemplate=f'%{{x}}<br>סכום התיקים=%{{y:,}}<br>סכום התיקים הכולל במחוז={total_tikim_sum:,}'
     )
     st.plotly_chart(fig)
 # Assuming 'data' is your DataFrame
