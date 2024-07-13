@@ -102,6 +102,9 @@ else:
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
                   legend_title_text='קבוצת העבירות', title_x=0.7, height=500)
+fig_all_districts.update_traces(
+    hovertemplate='%קבוצת העבירה={x}<br>סכום התיקים המנורמל=-%{y:,}'
+)
 if len(selected_groups) == 1:
         fig.update_layout(showlegend=False)
 
