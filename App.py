@@ -69,19 +69,25 @@ if selected_district == "כלל המחוזות":
     st.plotly_chart(fig_all_districts)
 else:
     district_data = g[g['PoliceDistrict'] == selected_district]
-    total_tikim_sum = district_data['TikimSum'].sum()
+    
+    # Aggregate data by Quarter to get the total TikimSum for each quarter
+    quarter_totals = district_data.groupby('Quarter')['TikimSum'].sum().reset_index()
+    quarter_totals.rename(columns={'TikimSum': 'TotalTikimSum'}, inplace=True)
+    
+    # Merge the total TikimSum with the district data
+    district_data = pd.merge(district_data, quarter_totals, on='Quarter', how='left')
     
     fig = px.line(
         district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
         title=f'מגמות התיקים שנפתחו ב{selected_district}',
         color_discrete_sequence=color_sequence_district,
-        hover_data={'Quarter': True, 'TikimSum': ':.3s'}
+        hover_data={'Quarter': True, 'TikimSum': ':.3s', 'TotalTikimSum': True}
     )
     fig.update_layout(
         yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב'
     )
     fig.update_traces(
-        hovertemplate=f'%{{x}}<br>סכום התיקים=%{{y:,}}<br>סכום התיקים הכולל במחוז={total_tikim_sum:,}'
+        hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
     st.plotly_chart(fig)
 # Assuming 'data' is your DataFrame
