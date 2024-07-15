@@ -39,11 +39,7 @@ st.markdown(
         gap: 10px;
         margin-top: 10px;
     }
-    .stSelectbox .css-yk16xz-control {
-        direction: rtl;
-        text-align: right;
-    }
-    .stSelectbox .css-1hwfws3 {
+    .stSelectbox div[data-baseweb="select"] > div {
         direction: rtl;
         text-align: right;
     }
@@ -103,7 +99,7 @@ fig_all_districts.update_traces(
 # Dropdown with an additional "כלל המחוזות" option
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
-selected_district = st.selectbox("בחר את מחוז המשטרה", options)
+selected_district = st.selectbox("", options, key='district_selectbox')
 if selected_district == "כלל המחוזות":
     st.plotly_chart(fig_all_districts)
 else:
@@ -141,10 +137,15 @@ else:
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
     st.plotly_chart(fig)
+st.markdown('''
+<div class="rtl-text">
+בחר את קבוצת הפשיעה:
+</div>
+''', unsafe_allow_html=True)
 # Assuming 'data' is your DataFrame
 all_crime_groups = data['StatisticCrimeGroup'].unique()
 
-selected_groups = st.multiselect("בחר את קבוצות הפשיעה", all_crime_groups, default=all_crime_groups)
+selected_groups = st.multiselect("", all_crime_groups, default=all_crime_groups)
 
 # Filter data based on selected groups
 filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)] if selected_groups else pd.DataFrame(columns=data.columns)
@@ -184,7 +185,11 @@ st.plotly_chart(fig)
 # Convert 'Quarter' to 'Year'
 df['Year'] = df['Quarter'].str[:4].astype(int)
 data['Year'] = data['Quarter'].str[:4].astype(int)
-
+st.markdown('''
+<div class="rtl-text">
+בחר את קבוצת העבירה:
+</div>
+''', unsafe_allow_html=True)
 # Function to plot relative crime by religion and group
 def plot_relative_crime_by_religion_and_group(df, data, selected_group):
     # Merge the two dataframes on StatisticCrimeGroup, Cluster, and Year
