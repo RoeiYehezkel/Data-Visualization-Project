@@ -44,7 +44,9 @@ st.markdown("""<style>
     direction: rtl;
     text-align: right;
 }
-
+.css-18t991q-control {
+  flex-direction: row-reverse;
+}
     .stSelectbox div[data-baseweb="select"] {
         direction: rtl;
         text-align: right;
