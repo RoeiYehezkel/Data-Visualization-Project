@@ -126,30 +126,29 @@ filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)] if selec
 # Create the figure
 if not filtered_data.empty:
     fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
-                       title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב', hover_data={'Cluster': False, 'StatisticCrimeGroup': True, 'norm': ':.3s'})
+                       title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב', hover_data={'Cluster': False, 'StatisticCrimeGroup': True, 'norm':':.3s'})
 else:
     # Create an empty figure with the same layout
     fig = go.Figure()
     fig.add_trace(go.Bar(x=[], y=[]))
     fig.update_layout(title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
-    fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
-    fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(text="אשכול כלכלי-חברתי",font=dict(size=20)),
-    yaxis_title=dict(
-    text="סכום התיקים המנורמל בגודל האוכלוסייה",
-    font=dict(size=20)  # Increase the text size
-),
-    legend_title=dict(
-            text="קבוצת העבירות",
-            font=dict(size=20)  # Increase the text size
-        ), title_x=0.7, height=630, hoverlabel=dict(font_size=20),
-    legend=dict(font=dict(size=20)))
+fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
+fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
+fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
+fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
+        text="אשכול כלכלי-חברתי",
+        font=dict(size=20)  # Increase the text size
+    ), yaxis_title=dict(
+        text="סכום התיקים המנורמל בגודל האוכלוסייה",
+        font=dict(size=20)  # Increase the text size
+    ),
+                  legend_title_text='קבוצת העבירות', title_x=0.7, height=600,hoverlabel=dict(font_size=20),
+    legend=dict(font=dict(size=18)))
 fig.update_traces(
     hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}'
 )
 if len(selected_groups) == 1:
-    fig.update_layout(showlegend=False)
+        fig.update_layout(showlegend=False)
 
 st.plotly_chart(fig)
 
