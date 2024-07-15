@@ -26,7 +26,7 @@ preprocessed_data = os.path.join(os.path.dirname(__file__), 'preprocessed_data.c
 df = pd.read_csv(preprocessed_data)
 
 # Custom CSS to set text direction to right-to-left
-    st.markdown("""<style>
+st.markdown("""<style>
                 div[data-baseweb="select"] {
                     direction: RTL;
                 } </style>""", unsafe_allow_html=True)
