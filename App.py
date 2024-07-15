@@ -55,10 +55,16 @@ fig_all_districts = px.line(
     hover_data={'Quarter': True, 'TikimSum': ':.3s'}
 )
 fig_all_districts.update_layout(
-    yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מחוז משטרה'
+    yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מחוז משטרה',
+    font=dict(size=14, color='black', family='Arial'),
+    title=dict(font=dict(size=20, color='black', family='Arial', bold=True)),
+    xaxis=dict(title=dict(font=dict(size=16, color='black', family='Arial', bold=True))),
+    yaxis=dict(title=dict(font=dict(size=16, color='black', family='Arial', bold=True))),
+    legend=dict(font=dict(size=14, color='black', family='Arial', bold=True))
 )
 fig_all_districts.update_traces(
-    hovertemplate='%{x}<br>סכום התיקים=%{y:,}'
+    hovertemplate='%{x}<br>סכום התיקים=%{y:,}',
+    hoverlabel=dict(font=dict(size=14, color='black', family='Arial', bold=True))
 )
 
 # Dropdown with an additional "כלל המחוזות" option
@@ -84,12 +90,19 @@ else:
         hover_data={'Quarter': True, 'TikimSum': ':.3s', 'TotalTikimSum': True}
     )
     fig.update_layout(
-        yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב'
+        yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב',
+        font=dict(size=14, color='black', family='Arial'),
+        title=dict(font=dict(size=20, color='black', family='Arial', bold=True)),
+        xaxis=dict(title=dict(font=dict(size=16, color='black', family='Arial', bold=True))),
+        yaxis=dict(title=dict(font=dict(size=16, color='black', family='Arial', bold=True))),
+        legend=dict(font=dict(size=14, color='black', family='Arial', bold=True))
     )
     fig.update_traces(
-        hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
+        hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}',
+        hoverlabel=dict(font=dict(size=14, color='black', family='Arial', bold=True))
     )
     st.plotly_chart(fig)
+
 # Assuming 'data' is your DataFrame
 all_crime_groups = data['StatisticCrimeGroup'].unique()
 
@@ -110,9 +123,16 @@ else:
 
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
-                  legend_title_text='קבוצת העבירות', title_x=0.7, height=500)
+                  legend_title_text='קבוצת העבירות', title_x=0.7, height=500,
+                  font=dict(size=14, color='black', family='Arial'),
+                  title=dict(font=dict(size=20, color='black', family='Arial', bold=True)),
+                  xaxis=dict(title=dict(font=dict(size=16, color='black', family='Arial', bold=True))),
+                  yaxis=dict(title=dict(font=dict(size=16, color='black', family='Arial', bold=True))),
+                  legend=dict(font=dict(size=14, color='black', family='Arial', bold=True))
+)
 fig.update_traces(
-    hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}'
+    hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}',
+    hoverlabel=dict(font=dict(size=14, color='black', family='Arial', bold=True))
 )
 if len(selected_groups) == 1:
         fig.update_layout(showlegend=False)
@@ -164,7 +184,13 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      category_orders={'Year': sorted(unique_years), 'Religious level': desired_order},
                      facet_col_wrap=6,
                      height=700,  # Set the height to fit the page
-                     facet_row_spacing=0.05)  # Adjust row spacing if needed
+                     facet_row_spacing=0.05,  # Adjust row spacing if needed
+                     font=dict(size=14, color='black', family='Arial'),
+                     title=dict(font=dict(size=20, color='black', family='Arial', bold=True)),
+                     xaxis=dict(title=dict(font=dict(size=16, color='black', family='Arial', bold=True))),
+                     yaxis=dict(title=dict(font=dict(size=16, color='black', family='Arial', bold=True))),
+                     legend=dict(font=dict(size=14, color='black', family='Arial', bold=True))
+        )
     else:
         # Filter the dataframe by selected crime group
         filtered_df = merged_df[merged_df['StatisticCrimeGroup'] == selected_group]
@@ -194,7 +220,13 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      category_orders={'Year': sorted(unique_years), 'Religious level': desired_order},
                      facet_col_wrap=6,
                      height=700,  # Set the height to fit the page
-                     facet_row_spacing=0.05)  # Adjust row spacing if needed
+                     facet_row_spacing=0.05,  # Adjust row spacing if needed
+                     font=dict(size=14, color='black', family='Arial'),
+                     title=dict(font=dict(size=20, color='black', family='Arial', bold=True)),
+                     xaxis=dict(title=dict(font=dict(size=16, color='black', family='Arial', bold=True))),
+                     yaxis=dict(title=dict(font=dict(size=16, color='black', family='Arial', bold=True))),
+                     legend=dict(font=dict(size=14, color='black', family='Arial', bold=True))
+        )
 
     # Update layout to show x-axis in all facets
     fig.for_each_xaxis(lambda xaxis: xaxis.update(showticklabels=True, title_text='אחוז הפשיעה'))
