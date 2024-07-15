@@ -34,69 +34,30 @@ st.markdown("""<style>
         direction: rtl;
         text-align: right;
     }
-    .stSelectbox {
-  direction: rtl;
-  text-align: right;
-}
-
-.stSelectbox div[data-baseweb="select"] {
-  direction: rtl;
-  text-align: right;
-}
-
-.stSelectbox div[data-baseweb="select"].stSelectbox div[data-baseweb="select"].css-1n7v3ny-option {
-  direction: rtl;
-  text-align: right;
-}
-
-.stSelectbox div[data-baseweb="select"].css-1n7v3ny-option {
-  direction: rtl;
-  text-align: right;
-}
-
-.stSelectbox div[data-baseweb="select"] button {
-  direction: rtl;
-  text-align: right;
-}
-    .inline-buttons {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        margin-top: 10px;
+    .stSelectbox, .stMultiSelect {
+        direction: rtl !important;
     }
-    div[data-baseweb="select"] {
-    direction: rtl;
-    text-align: right;
-}
-.css-18t991q-control {
-  flex-direction: row-reverse;
-}
-    .stSelectbox div[data-baseweb="select"] {
-        direction: rtl;
-        text-align: right;
+    div[data-baseweb="select"] > div {
+        direction: rtl !important;
+        text-align: right !important;
     }
-    div[data-testid="stSelectbox"] div[role="listbox"] {
-    direction: rtl;
-    text-align: right;
-}
-
-/* Ensure the dropdown itself is also aligned RTL */
-div[data-testid="stSelectbox"] button {
-    direction: rtl;
-    text-align: right;
-}
-    .stSelectbox div[data-baseweb="select"] .stSelectbox div[data-baseweb="select"] .css-1n7v3ny-option, .css-1uccc91-singleValue {
-        direction: rtl;
-        text-align: right;
+    div[data-baseweb="select"] span {
+        direction: rtl !important;
+        text-align: right !important;
     }
-    .stSelectbox div[data-baseweb="select"] .css-1n7v3ny-option {
-        direction: rtl;
-        text-align: right;
+    div[data-baseweb="select"] ul {
+        direction: rtl !important;
+        text-align: right !important;
     }
-    div[data-baseweb="select"] .css-1n7v3ny-option {
-    direction: rtl !important;
-    text-align: right !important;
-}</style>""", unsafe_allow_html=True)
+    div[data-baseweb="select"] li {
+        direction: rtl !important;
+        text-align: right !important;
+    }
+    .stSelectbox > div[data-baseweb="select"] > div[title] {
+        direction: rtl !important;
+        justify-content: flex-end !important;
+    }
+    </style>""", unsafe_allow_html=True)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
 st.markdown('''
 <h3 class="rtl-text">
