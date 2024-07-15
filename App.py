@@ -66,7 +66,11 @@ div[data-testid="stSelectbox"] button {
     .stSelectbox div[data-baseweb="select"] .css-1n7v3ny-option {
         direction: rtl;
         text-align: right;
-    }</style>""", unsafe_allow_html=True)
+    }
+    div[data-baseweb="select"] .css-1n7v3ny-option {
+    direction: rtl !important;
+    text-align: right !important;
+}</style>""", unsafe_allow_html=True)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
 st.markdown('''
 <h3 class="rtl-text">
