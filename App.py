@@ -47,7 +47,7 @@ st.markdown(
 )
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
 
-color_sequence_district = ['#a65628', '#377eb8', '#ff7f00', '#984ea3', '#66c2a4', '#e41a1c', '#fec44f']
+color_sequence_district = ['#a65628', '#377eb8', '#ff7f00', '#f768a1', '#66c2a4', '#e41a1c', '#fec44f']
 
 # Create the figure for all districts
 fig_all_districts = px.line(
@@ -73,7 +73,7 @@ if selected_district == "כלל המחוזות":
         title_x=0.75, 
         legend_title_text='מחוז משטרה',
         hoverlabel=dict(font_size=15),
-        legend=dict(font=dict(size=15))
+        legend=dict(font=dict(size=20))
     )
     fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
     fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
