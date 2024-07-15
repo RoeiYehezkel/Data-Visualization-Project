@@ -43,6 +43,10 @@ st.markdown(
         direction: rtl;
         text-align: right;
     }
+    .stSelectbox div[data-baseweb="select"] .css-1uccc91-singleValue {
+        direction: rtl;
+        text-align: right;
+    }
     </style>
     """,
     unsafe_allow_html=True
