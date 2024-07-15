@@ -72,7 +72,7 @@ if selected_district == "כלל המחוזות":
         xaxis_title='רבעון', 
         title_x=0.75, 
         legend_title_text='מחוז משטרה',
-        hoverlabel=dict(font_size=15),
+        hoverlabel=dict(font_size=20),
         legend=dict(font=dict(size=18))
     )
     fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
@@ -126,7 +126,7 @@ fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
 fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
-                  legend_title_text='קבוצת העבירות', title_x=0.7, height=600,hoverlabel=dict(font_size=15),
+                  legend_title_text='קבוצת העבירות', title_x=0.7, height=600,hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=18)))
 fig.update_traces(
     hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}'
@@ -214,8 +214,8 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
 
     # Update layout to show x-axis in all facets
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
-    fig.update_layout(title_x=0.65,hoverlabel=dict(font_size=15),
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
+    fig.update_layout(title_x=0.65,hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=18)))
     st.plotly_chart(fig, use_container_width=True)
 
