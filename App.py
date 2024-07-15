@@ -142,7 +142,10 @@ fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
         text="סכום התיקים המנורמל בגודל האוכלוסייה",
         font=dict(size=20)  # Increase the text size
     ),
-                  legend_title_text='קבוצת העבירות', title_x=0.7, height=600,hoverlabel=dict(font_size=20),
+                  legend_title=dict(
+        text="קבוצת העבירות",
+        font=dict(size=20)  # Increase the text size
+    ), title_x=0.7, height=600,hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=18)))
 fig.update_traces(
     hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}'
