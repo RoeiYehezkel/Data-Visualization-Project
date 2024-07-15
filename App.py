@@ -57,7 +57,13 @@ fig_all_districts = px.line(
     hover_data={'Quarter': True, 'TikimSum': ':.3s'}
 )
 fig_all_districts.update_layout(
-    yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מחוז משטרה'
+    yaxis_title=dict(
+        text="כמות התיקים",
+        font=dict(size=20)  # Increase the text size
+    ), xaxis_title=dict(
+        text="רבעון",
+        font=dict(size=20)  # Increase the text size
+    ), title_x=0.75, legend_title_text='מחוז משטרה'
 )
 fig_all_districts.update_traces(
     hovertemplate='%{x}<br>סכום התיקים=%{y:,}'
@@ -68,7 +74,10 @@ options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
 selected_district = st.selectbox("בחר את מחוז המשטרה", options)
 if selected_district == "כלל המחוזות":
     fig_all_districts.update_layout(
-        yaxis_title='כמות התיקים', 
+        yaxis_title=dict(
+        text="כמות התיקים",
+        font=dict(size=20)  # Increase the text size
+    ),
         xaxis_title=dict(
         text="רבעון",
         font=dict(size=20)  # Increase the text size
@@ -99,7 +108,13 @@ else:
         hover_data={'Quarter': True, 'TikimSum': ':.3s', 'TotalTikimSum': True}
     )
     fig.update_layout(
-        yaxis_title='כמות התיקים', xaxis_title='רבעון', title_x=0.75, legend_title_text='מרחב',hoverlabel=dict(font_size=15),
+        yaxis_title=dict(
+        text="כמות התיקים",
+        font=dict(size=20)  # Increase the text size
+    ), xaxis_title=dict(
+        text="רבעון",
+        font=dict(size=20)  # Increase the text size
+    ), title_x=0.75, legend_title_text='מרחב',hoverlabel=dict(font_size=15),
     legend=dict(font=dict(size=15)))
     fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
     fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
@@ -128,7 +143,13 @@ else:
 fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
 fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
-fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
+fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
+        text="אשכול כלכלי-חברתי",
+        font=dict(size=20)  # Increase the text size
+    ), yaxis_title=dict(
+        text="סכום התיקים המנורמל בגודל האוכלוסייה",
+        font=dict(size=20)  # Increase the text size
+    ),
                   legend_title_text='קבוצת העבירות', title_x=0.7, height=600,hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=18)))
 fig.update_traces(
