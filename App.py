@@ -132,13 +132,11 @@ else:
     fig = go.Figure()
     fig.add_trace(go.Bar(x=[], y=[]))
     fig.update_layout(title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
-fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
-fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
-fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
-fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
-    text="אשכול כלכלי-חברתי",
-    font=dict(size=20)  # Increase the text size
-), yaxis_title=dict(
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
+    fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
+    fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(text="אשכול כלכלי-חברתי",font=dict(size=20)),
+    yaxis_title=dict(
     text="סכום התיקים המנורמל בגודל האוכלוסייה",
     font=dict(size=20)  # Increase the text size
 ),
