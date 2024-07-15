@@ -69,7 +69,10 @@ selected_district = st.selectbox("בחר את מחוז המשטרה", options)
 if selected_district == "כלל המחוזות":
     fig_all_districts.update_layout(
         yaxis_title='כמות התיקים', 
-        xaxis_title='רבעון', 
+        xaxis_title=dict(
+        text="רבעון",
+        font=dict(size=20)  # Increase the text size
+    ),
         title_x=0.75, 
         legend_title_text='מחוז משטרה',
         hoverlabel=dict(font_size=20),
