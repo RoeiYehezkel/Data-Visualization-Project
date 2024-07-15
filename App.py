@@ -108,8 +108,8 @@ else:
         ), hoverlabel=dict(font_size=20),
         legend=dict(font=dict(size=20))
     )
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
     fig.update_traces(
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
@@ -132,8 +132,8 @@ else:
     fig = go.Figure()
     fig.add_trace(go.Bar(x=[], y=[]))
     fig.update_layout(title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
-fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
-fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
+fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
         text="אשכול כלכלי-חברתי",
@@ -233,7 +233,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
 
     # Update layout to show x-axis in all facets
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
     fig.update_layout(title_x=0.65, hoverlabel=dict(font_size=20),
                       legend=dict(font=dict(size=18)),
                       legend_title=dict(font=dict(size=20)),
