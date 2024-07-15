@@ -65,11 +65,11 @@ fig_all_districts.update_traces(
 # Dropdown with an additional "כלל המחוזות" option
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
 selected_district = st.selectbox("בחר את מחוז המשטרה", options)
-
+fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
+fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
+fig.update_layout(hoverlabel=dict(font_size=15), legend=dict(font=dict(size=15)))
+    
 if selected_district == "כלל המחוזות":
-    fig.update_layout(hoverlabel=dict(font_size=15), legend=dict(font=dict(size=15)))
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
     st.plotly_chart(fig_all_districts)
 else:
     district_data = g[g['PoliceDistrict'] == selected_district]
