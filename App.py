@@ -25,7 +25,7 @@ data = pd.read_csv(grouped_data_by_cluster)
 preprocessed_data=os.path.join(os.path.dirname(__file__), 'preprocessed_data.csv')
 df = pd.read_csv(preprocessed_data)
 
-# Custom CSS for dark mode and text direction
+# Custom CSS to set text direction to right-to-left
 st.markdown(
     """
     <style>
@@ -38,34 +38,6 @@ st.markdown(
         justify-content: flex-end;
         gap: 10px;
         margin-top: 10px;
-    }
-    body {
-        background-color: #333;
-        color: #fff;
-    }
-    .stApp {
-        background-color: #333;
-        color: #fff;
-    }
-    .css-1aumxhk {
-        background-color: #333;
-        color: #fff;
-    }
-    .css-12ttj6m {
-        background-color: #333;
-        color: #fff;
-    }
-    .css-18ni7ap {
-        background-color: #333;
-        color: #fff;
-    }
-    .css-1vq4p4l {
-        background-color: #333;
-        color: #fff;
-    }
-    .css-1avcm0n {
-        background-color: #333;
-        color: #fff;
     }
     </style>
     """,
