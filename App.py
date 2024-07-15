@@ -40,6 +40,29 @@ st.markdown("""<style>
         gap: 10px;
         margin-top: 10px;
     }
+    div[data-baseweb="select"] {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Ensure the listbox (dropdown options) is also RTL */
+div[data-testid="stSelectbox"] div[role="listbox"] {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Ensure the dropdown button is also aligned RTL */
+div[data-testid="stSelectbox"] button {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Adjustments for all options (selected and not selected) */
+.stSelectbox div[data-baseweb="select"] .css-1n7v3ny-option, 
+.stSelectbox div[data-baseweb="select"] .css-1uccc91-singleValue {
+    direction: rtl;
+    text-align: right;
+}
     .stSelectbox div[data-baseweb="select"] {
         direction: rtl;
         text-align: right;
