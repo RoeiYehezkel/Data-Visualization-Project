@@ -14,38 +14,6 @@ matplotlib.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.family'] = 'Arial'
 plt.rcParams['axes.titlepad'] = 20
 
-dark_theme_css = """
-<style>
-body {
-    background-color: #1e1e1e;
-    color: #ffffff;
-}
-.stApp {
-    background-color: #1e1e1e;
-    color: #ffffff;
-}
-.css-18e3th9 {
-    background-color: #1e1e1e;
-    color: #ffffff;
-}
-.css-1d391kg {
-    background-color: #1e1e1e;
-    color: #ffffff;
-}
-.css-1d391kg > div {
-    color: #ffffff;
-}
-.css-1cpxqw2 {
-    background-color: #1e1e1e;
-    color: #ffffff;
-}
-.css-145kmo2 {
-    background-color: #1e1e1e;
-    color: #ffffff;
-}
-</style>
-"""
-st.markdown(dark_theme_css, unsafe_allow_html=True)
 
 grouped_data=os.path.join(os.path.dirname(__file__), 'grouped_data.csv')
 g = pd.read_csv(grouped_data)
