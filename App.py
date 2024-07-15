@@ -45,6 +45,7 @@ body {
 }
 </style>
 """
+st.markdown(dark_theme_css, unsafe_allow_html=True)
 
 grouped_data=os.path.join(os.path.dirname(__file__), 'grouped_data.csv')
 g = pd.read_csv(grouped_data)
