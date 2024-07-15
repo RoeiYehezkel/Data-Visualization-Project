@@ -1,4 +1,3 @@
-
 import plotly.express as px
 import pandas as pd
 import streamlit as st
@@ -14,17 +13,16 @@ matplotlib.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.family'] = 'Arial'
 plt.rcParams['axes.titlepad'] = 20
 
-
-grouped_data=os.path.join(os.path.dirname(__file__), 'grouped_data.csv')
+grouped_data = os.path.join(os.path.dirname(__file__), 'grouped_data.csv')
 g = pd.read_csv(grouped_data)
 
 # Aggregating data by Quarter and PoliceDistrict
 aggregated_data = g.groupby(['Quarter', 'PoliceDistrict'], as_index=False).sum()
 
-grouped_data_by_cluster=os.path.join(os.path.dirname(__file__), 'grouped_data_by_cluster.csv')
+grouped_data_by_cluster = os.path.join(os.path.dirname(__file__), 'grouped_data_by_cluster.csv')
 data = pd.read_csv(grouped_data_by_cluster)
 
-preprocessed_data=os.path.join(os.path.dirname(__file__), 'preprocessed_data.csv')
+preprocessed_data = os.path.join(os.path.dirname(__file__), 'preprocessed_data.csv')
 df = pd.read_csv(preprocessed_data)
 
 # Custom CSS to set text direction to right-to-left
@@ -67,7 +65,11 @@ fig_all_districts.update_layout(
         text="מחוז משטרה",
         font=dict(size=20)  # Increase the text size
     ),
+    hoverlabel=dict(font_size=20),
+    legend=dict(font=dict(size=18))
 )
+fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
+fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
 fig_all_districts.update_traces(
     hovertemplate='%{x}<br>סכום התיקים=%{y:,}'
 )
@@ -76,23 +78,6 @@ fig_all_districts.update_traces(
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
 selected_district = st.selectbox("בחר את מחוז המשטרה", options)
 if selected_district == "כלל המחוזות":
-    fig_all_districts.update_layout(
-        yaxis_title=dict(
-        text="כמות התיקים",
-        font=dict(size=20)  # Increase the text size
-    ),
-        xaxis_title=dict(
-        text="רבעון",
-        font=dict(size=20)  # Increase the text size
-    ),
-        title_x=0.75, 
-        legend_title_text='מחוז משטרה',
-        hoverlabel=dict(font_size=20),
-        legend=dict(font=dict(size=18))
-    )
-    fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
-    fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
-    
     st.plotly_chart(fig_all_districts)
 else:
     district_data = g[g['PoliceDistrict'] == selected_district]
@@ -112,23 +97,24 @@ else:
     )
     fig.update_layout(
         yaxis_title=dict(
-        text="כמות התיקים",
-        font=dict(size=20)  # Increase the text size
-    ), xaxis_title=dict(
-        text="רבעון",
-        font=dict(size=20)  # Increase the text size
-    ), title_x=0.75, legend_title=dict(
-        text="מרחב",
-        font=dict(size=20)  # Increase the text size
-    ), hoverlabel=dict(font_size=20),
-    legend=dict(font=dict(size=20)))
+            text="כמות התיקים",
+            font=dict(size=20)  # Increase the text size
+        ), xaxis_title=dict(
+            text="רבעון",
+            font=dict(size=20)  # Increase the text size
+        ), title_x=0.75, legend_title=dict(
+            text="מרחב",
+            font=dict(size=20)  # Increase the text size
+        ), hoverlabel=dict(font_size=20),
+        legend=dict(font=dict(size=20))
+    )
     fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
     fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
-    
     fig.update_traces(
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
     st.plotly_chart(fig)
+
 # Assuming 'data' is your DataFrame
 all_crime_groups = data['StatisticCrimeGroup'].unique()
 
@@ -140,7 +126,7 @@ filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)] if selec
 # Create the figure
 if not filtered_data.empty:
     fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
-                       title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב', hover_data={'Cluster': False, 'StatisticCrimeGroup': True, 'norm':':.3s'})
+                       title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב', hover_data={'Cluster': False, 'StatisticCrimeGroup': True, 'norm': ':.3s'})
 else:
     # Create an empty figure with the same layout
     fig = go.Figure()
@@ -150,19 +136,19 @@ fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
 fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
-        text="אשכול כלכלי-חברתי",
-        font=dict(size=20)  # Increase the text size
-    ), yaxis_title=dict(
-        text="סכום התיקים המנורמל בגודל האוכלוסייה",
-        font=dict(size=20)  # Increase the text size
-    ),
-                  legend_title_text='קבוצת העבירות', title_x=0.7, height=600,hoverlabel=dict(font_size=20),
+    text="אשכול כלכלי-חברתי",
+    font=dict(size=20)  # Increase the text size
+), yaxis_title=dict(
+    text="סכום התיקים המנורמל בגודל האוכלוסייה",
+    font=dict(size=20)  # Increase the text size
+),
+    legend_title_text='קבוצת העבירות', title_x=0.7, height=600, hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=18)))
 fig.update_traces(
     hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}'
 )
 if len(selected_groups) == 1:
-        fig.update_layout(showlegend=False)
+    fig.update_layout(showlegend=False)
 
 st.plotly_chart(fig)
 
@@ -203,7 +189,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
         # Plot the relative bar chart with small multiples for each year
         fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeGroup', color='Religious level',
                      title=f'הקשר בין רמת הדתיות לרמת הפשיעה לפי קבוצת עבירה',
-                     labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'RelativeTikimSum': 'חלק הפשיעה היחסי', 'Religious level': 'רמת דתיות', 'TikimSum_original':'כמות התיקים'},
+                     labels={'StatisticCrimeGroup': 'קבוצת עבירה', 'RelativeTikimSum': 'חלק הפשיעה היחסי', 'Religious level': 'רמת דתיות', 'TikimSum_original': 'כמות התיקים'},
                      barmode='stack',  # Use stacked bar mode
                      hover_data={'StatisticCrimeGroup': False, 'Year': False, 'Religious level': False, 'TikimSum_original': True, 'RelativeTikimSum': True},
                      facet_col='Year',
@@ -233,7 +219,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
         # Plot the relative bar chart with small multiples for each year
         fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeType', color='Religious level',
                      title=f'הקשר בין מידת הדתיות של היישוב לרמת הפשיעה לפי {selected_group}',
-                     labels={'StatisticCrimeType': 'עבירה', 'RelativeTikimSum': 'חלק הפשיעה היחסי', 'Religious level': 'רמת דתיות', 'TikimSum_original':'כמות התיקים'},
+                     labels={'StatisticCrimeType': 'עבירה', 'RelativeTikimSum': 'חלק הפשיעה היחסי', 'Religious level': 'רמת דתיות', 'TikimSum_original': 'כמות התיקים'},
                      barmode='stack',  # Use stacked bar mode
                      hover_data={'StatisticCrimeType': False, 'Year': False, 'Religious level': False, 'TikimSum_original': True, 'RelativeTikimSum': True},
                      facet_col='Year',
@@ -245,11 +231,11 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
 
     # Update layout to show x-axis in all facets
     fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
-    fig.update_layout(title_x=0.65,hoverlabel=dict(font_size=20),
-    legend=dict(font=dict(size=18)),
-                     yaxis_title=dict(
-        font=dict(size=20)  # Increase the text size
-    ))
+    fig.update_layout(title_x=0.65, hoverlabel=dict(font_size=20),
+                      legend=dict(font=dict(size=18)),
+                      yaxis_title=dict(
+                          font=dict(size=20)  # Increase the text size
+                      ))
     st.plotly_chart(fig, use_container_width=True)
 
 # Example usage
