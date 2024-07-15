@@ -26,35 +26,10 @@ preprocessed_data = os.path.join(os.path.dirname(__file__), 'preprocessed_data.c
 df = pd.read_csv(preprocessed_data)
 
 # Custom CSS to set text direction to right-to-left
-st.markdown(
-    """
-    <style>
-    .rtl-text {
-        direction: rtl;
-        text-align: right;
-    }
-    .inline-buttons {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        margin-top: 10px;
-    }
-    .stSelectbox div[data-baseweb="select"] {
-        direction: rtl;
-        text-align: right;
-    }
-    .stSelectbox div[data-baseweb="select"] .css-1uccc91-singleValue {
-        direction: rtl;
-        text-align: right;
-    }
-    .stSelectbox div[data-baseweb="select"] .css-1n7v3ny-option {
-        direction: rtl;
-        text-align: right;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+    st.markdown("""<style>
+                div[data-baseweb="select"] {
+                    direction: RTL;
+                } </style>""", unsafe_allow_html=True)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
 st.markdown('''
 <h3 class="rtl-text">
