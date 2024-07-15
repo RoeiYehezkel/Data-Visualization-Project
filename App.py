@@ -117,10 +117,10 @@ else:
     ), xaxis_title=dict(
         text="רבעון",
         font=dict(size=20)  # Increase the text size
-    ), title_x=0.75, legend_title_text='מרחב',hoverlabel=dict(font_size=15),
-    legend=dict(font=dict(size=15)))
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
+    ), title_x=0.75, legend_title_text='מרחב',hoverlabel=dict(font_size=20),
+    legend=dict(font=dict(size=20)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
     
     fig.update_traces(
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
