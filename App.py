@@ -54,7 +54,7 @@ div[data-testid="stSelectbox"] button {
     direction: rtl;
     text-align: right;
 }
-    .stSelectbox div[data-baseweb="select"] .css-1uccc91-singleValue {
+    .stSelectbox div[data-baseweb="select"] .stSelectbox div[data-baseweb="select"] .css-1n7v3ny-option, .css-1uccc91-singleValue {
         direction: rtl;
         text-align: right;
     }
