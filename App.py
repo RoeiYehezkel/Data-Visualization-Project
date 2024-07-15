@@ -66,6 +66,17 @@ fig_all_districts.update_traces(
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
 selected_district = st.selectbox("בחר את מחוז המשטרה", options)
 if selected_district == "כלל המחוזות":
+    fig_all_districts.update_layout(
+        yaxis_title='כמות התיקים', 
+        xaxis_title='רבעון', 
+        title_x=0.75, 
+        legend_title_text='מחוז משטרה',
+        hoverlabel=dict(font_size=15),
+        legend=dict(font=dict(size=15))
+    )
+    fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
+    fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
+    
     st.plotly_chart(fig_all_districts)
 else:
     district_data = g[g['PoliceDistrict'] == selected_district]
