@@ -95,7 +95,7 @@ fig_all_districts.update_layout(
     hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=18))
 )
-
+fig_all_districts.add_vline(x=6, line=dict(dash='dash', color='white'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
 fig_all_districts.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
 fig_all_districts.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
 fig_all_districts.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
@@ -142,6 +142,7 @@ else:
         ), hoverlabel=dict(font_size=20),
         legend=dict(font=dict(size=20))
     )
+    fig.add_vline(x=6, line=dict(dash='dash', color='white'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
     fig.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
     fig.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
     fig.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
