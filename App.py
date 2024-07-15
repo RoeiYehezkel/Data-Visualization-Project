@@ -69,8 +69,9 @@ fig_all_districts.update_layout(
     legend=dict(font=dict(size=18))
 )
 
-fig_all_districts.add_vline(x='2021-Q1', line=dict(dash='dash', color='red'), annotation_text='סגר קורונה שלישי', annotation_position='top')
-fig_all_districts.add_vline(x='2021-Q2', line=dict(dash='dash', color='blue'), annotation_text='שומר החומות', annotation_position='top')
+fig_all_districts.add_vline(x=datetime(2021, 1, 1), line=dict(dash='dash', color='red'), annotation_text='סגר קורונה שלישי', annotation_position='top')
+fig_all_districts.add_vline(x=datetime(2021, 4, 1), line=dict(dash='dash', color='blue'), annotation_text='שומר החומות', annotation_position='top')
+
 fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
 fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
 fig_all_districts.update_traces(
