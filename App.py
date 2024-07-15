@@ -45,18 +45,21 @@ st.markdown(
 )
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
 st.markdown('''
-<div class="rtl-text">
+<h3 class="rtl-text">
 בדשבורד זה אנו מתמקדים בניתוח מגמות הפשיעה בישראל על פני תקופות זמן שונות ובאזורים גיאוגרפיים מגוונים. 
 מטרת הדשבורד היא להבין כיצד היקף הפשיעה משתנה במרוצת השנים ובחלוקה למחוזות המשטרה השונים. אנו מציגים את התפלגות התיקים שנפתחו לפי תקופות זמן שונות, כולל אירועים משמעותיים כמו סגר הקורונה השלישי ומבצע שומר החומות.
 באמצעות ויזואליזציה זו, ניתן לזהות תבניות ודפוסים בהתפלגות העבירות, ולהשוות בין האזורים השונים בארץ.
-</div>
+</h3>
 ''', unsafe_allow_html=True)
 color_sequence_district = ['#a65628', '#74c476', '#ff7f00', '#f768a1', '#e5d8bd', '#e41a1c', '#fec44f']
 
 # Create the figure for all districts
 fig_all_districts = px.line(
     aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
-    title='מגמות התיקים שנפתחו לפי מחוזות משטרה',
+    title=dict(
+        text="מגמות התיקים שנפתחו לפי מחוז משטרה",
+        font=dict(size=25)  # Increase the text size
+    ),
     color_discrete_sequence=color_sequence_district,
     hover_data={'Quarter': True, 'TikimSum': ':.3s'}
 )
