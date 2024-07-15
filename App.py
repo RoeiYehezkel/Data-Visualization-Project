@@ -39,6 +39,14 @@ st.markdown(
         gap: 10px;
         margin-top: 10px;
     }
+    .stSelectbox .css-yk16xz-control {
+        direction: rtl;
+        text-align: right;
+    }
+    .stSelectbox .css-1hwfws3 {
+        direction: rtl;
+        text-align: right;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -94,7 +102,8 @@ fig_all_districts.update_traces(
 
 # Dropdown with an additional "כלל המחוזות" option
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
-selected_district = st.selectbox("", options)
+options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
+selected_district = st.selectbox("בחר את מחוז המשטרה", options)
 if selected_district == "כלל המחוזות":
     st.plotly_chart(fig_all_districts)
 else:
@@ -126,17 +135,12 @@ else:
         ), hoverlabel=dict(font_size=20),
         legend=dict(font=dict(size=20))
     )
-    fig.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
-    fig.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
-    fig.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
-    fig.add_vline(x=13, line=dict(dash='dash', color='white'), annotation_text='שומר החומות', annotation_position='top')
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
     fig.update_traces(
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
     st.plotly_chart(fig)
-
 # Assuming 'data' is your DataFrame
 all_crime_groups = data['StatisticCrimeGroup'].unique()
 
