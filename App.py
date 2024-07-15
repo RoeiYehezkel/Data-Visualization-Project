@@ -34,6 +34,30 @@ st.markdown("""<style>
         direction: rtl;
         text-align: right;
     }
+    .stSelectbox {
+  direction: rtl;
+  text-align: right;
+}
+
+.stSelectbox div[data-baseweb="select"] {
+  direction: rtl;
+  text-align: right;
+}
+
+.stSelectbox div[data-baseweb="select"].stSelectbox div[data-baseweb="select"].css-1n7v3ny-option {
+  direction: rtl;
+  text-align: right;
+}
+
+.stSelectbox div[data-baseweb="select"].css-1n7v3ny-option {
+  direction: rtl;
+  text-align: right;
+}
+
+.stSelectbox div[data-baseweb="select"] button {
+  direction: rtl;
+  text-align: right;
+}
     .inline-buttons {
         display: flex;
         justify-content: flex-end;
