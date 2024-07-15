@@ -56,10 +56,7 @@ color_sequence_district = ['#a65628', '#74c476', '#ff7f00', '#f768a1', '#e5d8bd'
 # Create the figure for all districts
 fig_all_districts = px.line(
     aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
-    title=dict(
-        text="מגמות התיקים שנפתחו לפי מחוז משטרה",
-        font=dict(size=25)  # Increase the text size
-    ),
+    title="מגמות התיקים שנפתחו לפי מחוז משטרה",
     color_discrete_sequence=color_sequence_district,
     hover_data={'Quarter': True, 'TikimSum': ':.3s'}
 )
