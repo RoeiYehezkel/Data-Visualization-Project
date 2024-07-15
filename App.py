@@ -29,7 +29,29 @@ df = pd.read_csv(preprocessed_data)
 st.markdown("""<style>
                 div[data-baseweb="select"] {
                     direction: RTL;
-                } </style>""", unsafe_allow_html=True)
+                }
+                .rtl-text {
+        direction: rtl;
+        text-align: right;
+    }
+    .inline-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .stSelectbox div[data-baseweb="select"] {
+        direction: rtl;
+        text-align: right;
+    }
+    .stSelectbox div[data-baseweb="select"] .css-1uccc91-singleValue {
+        direction: rtl;
+        text-align: right;
+    }
+    .stSelectbox div[data-baseweb="select"] .css-1n7v3ny-option {
+        direction: rtl;
+        text-align: right;
+    }</style>""", unsafe_allow_html=True)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
 st.markdown('''
 <h3 class="rtl-text">
@@ -265,7 +287,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
 unique_years = df['Year'].unique()
 # Add a dropdown to select the crime group
 crime_groups = sorted(['כלל העבירות'] + df['StatisticCrimeGroup'].unique().tolist())
-selected_group = st.selectbox('בחר את קבוצת העבירה', crime_groups)
+selected_group = st.selectbox('', crime_groups)
 
 # Call the function to plot the chart
 plot_relative_crime_by_religion_and_group(df, data, selected_group)
