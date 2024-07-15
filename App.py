@@ -63,7 +63,7 @@ fig_all_districts.update_layout(
     ), xaxis_title=dict(
         text="רבעון",
         font=dict(size=20)  # Increase the text size
-    ), title_x=0.75, legend_title_text=dict(
+    ), title_x=0.75, legend_title=dict(
         text="מחוז משטרה",
         font=dict(size=20)  # Increase the text size
     ),
