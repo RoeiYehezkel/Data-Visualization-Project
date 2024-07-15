@@ -63,7 +63,10 @@ fig_all_districts.update_layout(
     ), xaxis_title=dict(
         text="רבעון",
         font=dict(size=20)  # Increase the text size
-    ), title_x=0.75, legend_title_text='מחוז משטרה'
+    ), title_x=0.75, legend_title_text=dict(
+        text="מחוז משטרה",
+        font=dict(size=20)  # Increase the text size
+    ),
 )
 fig_all_districts.update_traces(
     hovertemplate='%{x}<br>סכום התיקים=%{y:,}'
