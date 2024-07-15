@@ -44,7 +44,13 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
-
+st.markdown('''
+<div class="rtl-text">
+בדשבורד זה אנו מתמקדים בניתוח מגמות הפשיעה בישראל על פני תקופות זמן שונות ובאזורים גיאוגרפיים מגוונים. 
+מטרת הדשבורד היא להבין כיצד היקף הפשיעה משתנה במרוצת השנים ובחלוקה למחוזות המשטרה השונים. אנו מציגים את התפלגות התיקים שנפתחו לפי תקופות זמן שונות, כולל אירועים משמעותיים כמו סגר הקורונה השלישי ומבצע שומר החומות.
+באמצעות ויזואליזציה זו, ניתן לזהות תבניות ודפוסים בהתפלגות העבירות, ולהשוות בין האזורים השונים בארץ.
+</div>
+''', unsafe_allow_html=True)
 color_sequence_district = ['#a65628', '#74c476', '#ff7f00', '#f768a1', '#e5d8bd', '#e41a1c', '#fec44f']
 
 # Create the figure for all districts
@@ -155,7 +161,7 @@ fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
                   legend_title=dict(
         text="קבוצת העבירות",
         font=dict(size=20)  # Increase the text size
-    ), title_x=0.7, height=600,hoverlabel=dict(font_size=20),
+    ), title_x=0.7, height=650,hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=20)))
 fig.update_traces(
     hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}'
