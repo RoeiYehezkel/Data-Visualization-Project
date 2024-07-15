@@ -44,6 +44,16 @@ st.markdown("""<style>
         direction: rtl;
         text-align: right;
     }
+    div[data-testid="stSelectbox"] div[role="listbox"] {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Ensure the dropdown itself is also aligned RTL */
+div[data-testid="stSelectbox"] button {
+    direction: rtl;
+    text-align: right;
+}
     .stSelectbox div[data-baseweb="select"] .css-1uccc91-singleValue {
         direction: rtl;
         text-align: right;
