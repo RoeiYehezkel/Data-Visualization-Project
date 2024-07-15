@@ -89,7 +89,7 @@ else:
     legend=dict(font=dict(size=15)))
     fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
     fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
-    )
+    
     fig.update_traces(
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
