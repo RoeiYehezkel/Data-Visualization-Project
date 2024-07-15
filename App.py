@@ -140,11 +140,11 @@ else:
     text="סכום התיקים המנורמל בגודל האוכלוסייה",
     font=dict(size=20)  # Increase the text size
 ),
-    legend_titlelegend_title=dict(
+    legend_title=dict(
             text="קבוצת העבירות",
             font=dict(size=20)  # Increase the text size
         ), title_x=0.7, height=630, hoverlabel=dict(font_size=20),
-    legend=dict(font=dict(size=18)))
+    legend=dict(font=dict(size=20)))
 fig.update_traces(
     hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}'
 )
