@@ -112,7 +112,7 @@ fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
 fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title='אשכול כלכלי-חברתי', yaxis_title='סכום התיקים המנורמל בגודל האוכלוסיה',
-                  legend_title_text='קבוצת העבירות', title_x=0.7, height=500,hoverlabel=dict(font_size=15),
+                  legend_title_text='קבוצת העבירות', title_x=0.7, height=600,hoverlabel=dict(font_size=15),
     legend=dict(font=dict(size=15)))
 fig.update_traces(
     hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}'
