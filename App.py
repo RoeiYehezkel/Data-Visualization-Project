@@ -127,15 +127,15 @@ else:
             text="מרחב",
             font=dict(size=20)  # Increase the text size
         ), hoverlabel=dict(font_size=20),
-        legend=dict(font=dict(size=15))
+        legend=dict(font=dict(size=20))
     )
     fig.add_vline(x=6, line=dict(dash='dash', color='white'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
     fig.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
     fig.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
     fig.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
     fig.add_vline(x=13, line=dict(dash='dash', color='white'), annotation_text='שומר החומות', annotation_position='top')
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
     fig.update_traces(
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
@@ -267,9 +267,9 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
 
     # Update layout to show x-axis in all facets
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
     fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
-    fig.update_layout(title_x=0.65, hoverlabel=dict(font_size=20),
+    fig.update_layout(title_x=0.65, hoverlabel=dict(font_size=15),
                       legend=dict(font=dict(size=18)),
                       legend_title=dict(font=dict(size=20)),
                       yaxis_title=dict(
