@@ -117,6 +117,7 @@ else:
         hover_data={'Quarter': True, 'TikimSum': ':.3s', 'TotalTikimSum': True}
     )
     fig.update_layout(
+        width=1400,    
         yaxis_title=dict(
             text="כמות התיקים",
             font=dict(size=20)  # Increase the text size
