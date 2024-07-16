@@ -74,23 +74,21 @@ fig_all_districts.update_layout(
     hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=18))
 )
-fig_all_districts.add_vline(x=6, line=dict(dash='dash', color='white'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
+
 fig_all_districts.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
 fig_all_districts.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
 fig_all_districts.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
 fig_all_districts.add_vline(x=13, line=dict(dash='dash', color='white'), annotation_text='שומר החומות', annotation_position='top')
 
-fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
-fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
+fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
+fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
 fig_all_districts.update_traces(
-
     hovertemplate='%{x}<br>סכום התיקים=%{y:,}'
 )
 
 # Dropdown with an additional "כלל המחוזות" option
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
 selected_district = st.selectbox("", options)
-
 if selected_district == "כלל המחוזות":
     st.plotly_chart(fig_all_districts)
 else:
@@ -102,9 +100,6 @@ else:
     
     # Merge the total TikimSum with the district data
     district_data = pd.merge(district_data, quarter_totals, on='Quarter', how='left')
-    
-    # Calculate percentage increase
-    district_data['PercentIncrease'] = district_data.groupby('PoliceMerhav')['TikimSum'].pct_change() * 100
     
     fig = px.line(
         district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
@@ -123,64 +118,18 @@ else:
             text="מרחב",
             font=dict(size=20)  # Increase the text size
         ), hoverlabel=dict(font_size=20),
-        legend=dict(font=dict(size=18))
+        legend=dict(font=dict(size=20))
     )
-    fig.add_vline(x=6, line=dict(dash='dash', color='white'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
     fig.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
     fig.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
     fig.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
     fig.add_vline(x=13, line=dict(dash='dash', color='white'), annotation_text='שומר החומות', annotation_position='top')
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
     fig.update_traces(
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
     st.plotly_chart(fig)
-st.markdown('''
-<h5 class="rtl-text">
-בחר את קבוצת הפשיעה:
-</h5>
-''', unsafe_allow_html=True)
-# Assuming 'data' is your DataFrame
-all_crime_groups = data['StatisticCrimeGroup'].unique()
-
-selected_groups = st.multiselect("", all_crime_groups, default=all_crime_groups)
-
-# Filter data based on selected groups
-filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)] if selected_groups else pd.DataFrame(columns=data.columns)
-
-# Create the figure
-if not filtered_data.empty:
-    fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
-                       title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב', hover_data={'Cluster': False, 'StatisticCrimeGroup': True, 'norm':':.3s'})
-else:
-    # Create an empty figure with the same layout
-    fig = go.Figure()
-    fig.add_trace(go.Bar(x=[], y=[]))
-    fig.update_layout(title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
-fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
-fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
-fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
-fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
-        text="אשכול כלכלי-חברתי",
-        font=dict(size=20)  # Increase the text size
-    ), yaxis_title=dict(
-        text="סכום התיקים המנורמל בגודל האוכלוסייה",
-        font=dict(size=20)  # Increase the text size
-    ),
-                  legend_title=dict(
-        text="קבוצת העבירות",
-        font=dict(size=20)  # Increase the text size
-    ), title_x=0.7, height=650,hoverlabel=dict(font_size=20),
-    legend=dict(font=dict(size=20)))
-fig.update_traces(
-    hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}'
-)
-if len(selected_groups) == 1:
-        fig.update_layout(showlegend=False)
-
-st.plotly_chart(fig)
-
 # Convert 'Quarter' to 'Year'
 df['Year'] = df['Quarter'].str[:4].astype(int)
 data['Year'] = data['Quarter'].str[:4].astype(int)
