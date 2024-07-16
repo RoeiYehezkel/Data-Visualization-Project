@@ -92,11 +92,7 @@ fig_all_districts.update_layout(
 )
 
 # Add vertical lines for significant events
-fig_all_districts.add_vline(x=6, line=dict(dash='dash', color='blue'), annotation=dict(
-        text='מחאת יוצאי אתיופיה-סלומון טקה', 
-        position='top',
-        font=dict(size=14, color='black')  # Adjust size and color here
-    ))
+fig_all_districts.add_vline(x=6, line=dict(dash='dash', color='blue'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
 fig_all_districts.add_vline(x=9, line=dict(dash='dash', color='blue'), annotation_text='סגר ראשון', annotation_position='top')
 fig_all_districts.add_vline(x=11, line=dict(dash='dash', color='blue'), annotation_text='סגר שני', annotation_position='top')
 fig_all_districts.add_vline(x=12, line=dict(dash='dash', color='blue'), annotation_text='סגר שלישי', annotation_position='top')
