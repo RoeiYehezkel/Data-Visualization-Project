@@ -199,7 +199,7 @@ fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 # Update layout of the histogram
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
         text="אשכול כלכלי-חברתי",
-        font=dict(size=20, color="black")  # Increase the text size
+        font=dict(size=20)  # Increase the text size
     ), yaxis_title=dict(
         text="סכום התיקים המנורמל בגודל האוכלוסייה",
         font=dict(size=20, color="black"),
