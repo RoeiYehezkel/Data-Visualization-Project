@@ -18,6 +18,7 @@ g = pd.read_csv(grouped_data)
 
 # Aggregating data by Quarter and PoliceDistrict
 aggregated_data = g.groupby(['Quarter', 'PoliceDistrict'], as_index=False).sum()
+aggregated_data['PercentIncrease'] = aggregated_data.groupby('PoliceDistrict')['TikimSum'].pct_change() * 100
 
 grouped_data_by_cluster = os.path.join(os.path.dirname(__file__), 'grouped_data_by_cluster.csv')
 data = pd.read_csv(grouped_data_by_cluster)
@@ -62,7 +63,7 @@ fig_all_districts = px.line(
     aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
     title="מגמות התיקים שנפתחו לפי מחוז משטרה",
     color_discrete_sequence=color_sequence_district,
-    hover_data={'Quarter': True, 'TikimSum': ':.3s'}
+    hover_data={'Quarter': True, 'TikimSum': ':.3s', 'PercentIncrease': ':.2f'}
 )
 fig_all_districts.update_layout(
     yaxis_title=dict(
@@ -87,13 +88,13 @@ fig_all_districts.add_vline(x=13, line=dict(dash='dash', color='white'), annotat
 fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
 fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
 fig_all_districts.update_traces(
-    hovertemplate='%{x}<br>סכום התיקים=%{y:,}'
+    hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>שינוי מהתקופה הקודמת=%{PercentIncrease:.2f}%%'
 )
 
 # Dropdown with an additional "כלל המחוזות" option
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
-options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
 selected_district = st.selectbox("", options)
+
 if selected_district == "כלל המחוזות":
     st.plotly_chart(fig_all_districts)
 else:
@@ -106,11 +107,14 @@ else:
     # Merge the total TikimSum with the district data
     district_data = pd.merge(district_data, quarter_totals, on='Quarter', how='left')
     
+    # Calculate percentage increase
+    district_data['PercentIncrease'] = district_data.groupby('PoliceMerhav')['TikimSum'].pct_change() * 100
+    
     fig = px.line(
         district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
         title=f'מגמות התיקים שנפתחו ב{selected_district}',
         color_discrete_sequence=color_sequence_district,
-        hover_data={'Quarter': True, 'TikimSum': ':.3s', 'TotalTikimSum': True}
+        hover_data={'Quarter': True, 'TikimSum': ':.3s', 'TotalTikimSum': True, 'PercentIncrease': ':.2f'}
     )
     fig.update_layout(
         yaxis_title=dict(
@@ -133,7 +137,7 @@ else:
     fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
     fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
     fig.update_traces(
-        hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
+        hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>שינוי מהתקופה הקודמת=%{PercentIncrease:.2f}%%<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
     st.plotly_chart(fig)
 st.markdown('''
