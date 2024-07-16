@@ -35,7 +35,7 @@ st.markdown("""<style>
             --primary-color:"#535b5c";
             --background-color:"#0c0c3d";
             --secondary-background-color:"#228e94";
-            --text-color:"#f5f5f5";
+            "textColor":"#f5f5f5";
 
         }
         html {
