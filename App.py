@@ -27,36 +27,36 @@ df = pd.read_csv(preprocessed_data)
 
 # Custom CSS to set text direction to right-to-left
 st.markdown("""<style>
-                div[data-baseweb="select"] {
-                    direction: RTL;
-                }
-                .rtl-text {
-        direction: rtl;
-        text-align: right;
-    }
-    .stSelectbox, .stMultiSelect {
-        direction: rtl !important;
-    }
-    div[data-baseweb="select"] > div {
-        direction: rtl !important;
-        text-align: right !important;
-    }
-    div[data-baseweb="select"] span {
-        direction: rtl !important;
-        text-align: right !important;
-    }
-    div[data-baseweb="select"] ul {
-        direction: rtl !important;
-        text-align: right !important;
-    }
-    div[data-baseweb="select"] li {
-        direction: rtl !important;
-        text-align: right !important;
-    }
-    .stSelectbox > div[data-baseweb="select"] > div[title] {
-        direction: rtl !important;
-        justify-content: flex-end !important;
-    }
+        div[data-baseweb="select"] {
+            direction: RTL;
+        }
+        .rtl-text {
+            direction: rtl;
+            text-align: right;
+        }
+        .stSelectbox, .stMultiSelect {
+            direction: rtl !important;
+        }
+        div[data-baseweb="select"] > div {
+            direction: rtl !important;
+            text-align: right !important;
+        }
+        div[data-baseweb="select"] span {
+            direction: rtl !important;
+            text-align: right !important;
+        }
+        div[data-baseweb="select"] ul {
+            direction: rtl !important;
+            text-align: right !important;
+        }
+        div[data-baseweb="select"] li {
+            direction: rtl !important;
+            text-align: right !important;
+        }
+        .stSelectbox > div[data-baseweb="select"] > div[title] {
+            direction: rtl !important;
+            justify-content: flex-end !important;
+        }
     </style>""", unsafe_allow_html=True)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
 st.markdown('''
