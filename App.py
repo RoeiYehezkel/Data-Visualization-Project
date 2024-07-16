@@ -18,8 +18,6 @@ g = pd.read_csv(grouped_data)
 
 # Aggregating data by Quarter and PoliceDistrict
 aggregated_data = g.groupby(['Quarter', 'PoliceDistrict'], as_index=False).sum()
-aggregated_data['PercentIncrease'] = aggregated_data.groupby('PoliceDistrict')['TikimSum'].pct_change() * 100
-aggregated_data['PercentIncrease'] = aggregated_data['PercentIncrease'].fillna(0)  # Fill NaNs with 0 for the first quarter
 
 grouped_data_by_cluster = os.path.join(os.path.dirname(__file__), 'grouped_data_by_cluster.csv')
 data = pd.read_csv(grouped_data_by_cluster)
@@ -89,8 +87,8 @@ fig_all_districts.add_vline(x=13, line=dict(dash='dash', color='white'), annotat
 fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
 fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
 fig_all_districts.update_traces(
-    customdata=aggregated_data['PercentIncrease'],  # Add this line to include PercentIncrease in custom data
-    hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>שינוי מהתקופה הקודמת=%{customdata:.2f}%'
+
+    hovertemplate='%{x}<br>סכום התיקים=%{y:,}'
 )
 
 # Dropdown with an additional "כלל המחוזות" option
@@ -139,7 +137,7 @@ else:
     fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
     fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
     fig.update_traces(
-        hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>שינוי מהתקופה הקודמת=%{customdata:.2f}%<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
+        hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
     st.plotly_chart(fig)
 st.markdown('''
