@@ -161,9 +161,9 @@ else:
     )
     st.plotly_chart(fig)
 st.markdown('''
-<div class="rtl-text">
+<h5 class="rtl-text">
 בחר את קבוצת הפשיעה:
-</div>
+</h5>
 ''', unsafe_allow_html=True)
 # Assuming 'data' is your DataFrame
 all_crime_groups = data['StatisticCrimeGroup'].unique()
@@ -209,9 +209,9 @@ st.plotly_chart(fig)
 df['Year'] = df['Quarter'].str[:4].astype(int)
 data['Year'] = data['Quarter'].str[:4].astype(int)
 st.markdown('''
-<div class="rtl-text">
+<h5 class="rtl-text">
 בחר את קבוצת העבירה:
-</div>
+</h5>
 ''', unsafe_allow_html=True)
 # Function to plot relative crime by religion and group
 def plot_relative_crime_by_religion_and_group(df, data, selected_group):
