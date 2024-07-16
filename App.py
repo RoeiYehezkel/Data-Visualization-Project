@@ -240,7 +240,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                       legend_title=dict(font=dict(size=20)),
                       yaxis_title=dict(
                           font=dict(size=20),  # Increase the text size
-                          standoff=50
+                          standoff=100
                       ))
     st.plotly_chart(fig, use_container_width=True)
 st.markdown('''
