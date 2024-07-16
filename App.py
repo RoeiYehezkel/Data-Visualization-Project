@@ -87,7 +87,7 @@ fig_all_districts.update_layout(
         text="מחוז משטרה",
         font=dict(size=20, color="black")  # Increase the text size
     ),
-    hoverlabel=dict(font_size=20, color="black"),
+    hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=18, color="black"))
 )
 
