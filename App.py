@@ -215,7 +215,7 @@ fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
                   legend_title=dict(
         text="קבוצת העבירות",
         font=dict(size=20, color="black")  # Increase the text size
-    ), title_x=0.7, height=650,hoverlabel=dict(font=dict(size=20, color="black"),
+    ), title_x=0.7, height=650,hoverlabel=dict(font=dict(size=20, color="black")),
     legend=dict(font=dict(size=20, color="black")))
 
 # Update hover template for the histogram
