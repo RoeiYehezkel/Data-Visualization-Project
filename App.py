@@ -53,7 +53,8 @@ fig_all_districts = px.line(
 fig_all_districts.update_layout(
     yaxis_title=dict(
         text="כמות התיקים",
-        font=dict(size=20)  # Increase the text size
+        font=dict(size=20),
+        standoff=70  # Increase the text size
     ), xaxis_title=dict(
         text="רבעון",
         font=dict(size=20)  # Increase the text size
@@ -100,7 +101,7 @@ else:
         yaxis_title=dict(
             text="כמות התיקים",
             font=dict(size=20),
-            standoff=30  # Increase the text size
+            standoff=70  # Increase the text size
         ), xaxis_title=dict(
             text="רבעון",
             font=dict(size=20)  # Increase the text size
