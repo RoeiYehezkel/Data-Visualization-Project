@@ -125,9 +125,9 @@ else:
             font=dict(size=20)  # Increase the text size
         ), title_x=0.75, legend_title=dict(
             text="מרחב",
-            font=dict(size=20)  # Increase the text size
+            font=dict(size=18)  # Increase the text size
         ), hoverlabel=dict(font_size=20),
-        legend=dict(font=dict(size=20))
+        legend=dict(font=dict(size=18))
     )
     fig.add_vline(x=6, line=dict(dash='dash', color='white'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
     fig.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
@@ -162,8 +162,8 @@ else:
     fig = go.Figure()
     fig.add_trace(go.Bar(x=[], y=[]))
     fig.update_layout(title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
-fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
-fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
+fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
+fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
         text="אשכול כלכלי-חברתי",
