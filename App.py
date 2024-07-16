@@ -36,7 +36,6 @@ st.markdown("""<style>
         }
         div, h1, h2, h3, h4, h5, h6 {
             direction: RTL;
-            text-align: right;
         }
     </style>""", unsafe_allow_html=True)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
