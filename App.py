@@ -7,8 +7,10 @@ import plotly.graph_objects as go
 import numpy as np
 import os
 
+
 # Configure Streamlit to use a wide layout
 st.set_page_config(layout="wide")
+# Fixing Hebrew text orientation
 
 # Fixing Hebrew text orientation for Matplotlib plots
 matplotlib.rcParams['axes.unicode_minus'] = False
@@ -62,6 +64,7 @@ st.markdown('''
 
 # Define color sequence for districts
 color_sequence_district = ["#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00","#e7298a","#a65628"]
+# Create the figure for all districts
 
 # Create a line chart for all districts
 fig_all_districts = px.line(
@@ -82,7 +85,7 @@ fig_all_districts.update_layout(
         font=dict(size=20, color="black")  # Increase the text size
     ), title_x=0.75, legend_title=dict(
         text="מחוז משטרה",
-        font=dict(size=20, color="black")
+        font=dict(size=20, color="black")  # Increase the text size
     ),
     hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=18, color="black"))
@@ -96,8 +99,8 @@ fig_all_districts.add_vline(x=12, line=dict(dash='dash', color='blue'), annotati
 fig_all_districts.add_vline(x=13, line=dict(dash='dash', color='blue'), annotation_text='שומר החומות', annotation_position='top')
 
 # Update font size for axis ticks
-fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20, color="black")))
-fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20, color="black")))
+fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
 
 # Update hover template for the line chart
 fig_all_districts.update_traces(
@@ -114,14 +117,15 @@ if selected_district == "כלל המחוזות":
 else:
     # Filter data for the selected district
     district_data = g[g['PoliceDistrict'] == selected_district]
-    
+
     # Aggregate data by Quarter to get the total TikimSum for each quarter
     quarter_totals = district_data.groupby('Quarter')['TikimSum'].sum().reset_index()
     quarter_totals.rename(columns={'TikimSum': 'TotalTikimSum'}, inplace=True)
     
     # Merge the total TikimSum with the district data
     district_data = pd.merge(district_data, quarter_totals, on='Quarter', how='left')
-    
+
+
     # Create a line chart for the selected district
     fig = px.line(
         district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
@@ -129,39 +133,39 @@ else:
         color_discrete_sequence=color_sequence_district,
         hover_data={'Quarter': True, 'TikimSum': ':.3s', 'TotalTikimSum': True}
     )
-    
+
     # Update layout of the line chart
     fig.update_layout(
         yaxis_title=dict(
             text="כמות התיקים",
-            font=dict(size=20, color="black"),
+            font=dict(size=20),
             standoff=75  # Increase the text size
         ), xaxis_title=dict(
             text="רבעון",
-            font=dict(size=20, color="black")  # Increase the text size
+            font=dict(size=20)  # Increase the text size
         ), title_x=0.75, legend_title=dict(
             text="מרחב",
-            font=dict(size=20, color="black")  # Increase the text size
-        ), hoverlabel=dict(font_size=20, color="black"),
-        legend=dict(font=dict(size=18, color="black"))
+            font=dict(size=20)  # Increase the text size
+        ), hoverlabel=dict(font_size=20),
+        legend=dict(font=dict(size=18))
     )
-    
+
     # Add vertical lines for significant events
     fig.add_vline(x=6, line=dict(dash='dash', color='blue'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
     fig.add_vline(x=9, line=dict(dash='dash', color='blue'), annotation_text='סגר ראשון', annotation_position='top')
     fig.add_vline(x=11, line=dict(dash='dash', color='blue'), annotation_text='סגר שני', annotation_position='top')
     fig.add_vline(x=12, line=dict(dash='dash', color='blue'), annotation_text='סגר שלישי', annotation_position='top')
     fig.add_vline(x=13, line=dict(dash='dash', color='blue'), annotation_text='שומר החומות', annotation_position='top')
-    
+
     # Update font size for axis ticks
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20, color="black")))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20, color="black")))
-    
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
+
     # Update hover template for the line chart
     fig.update_traces(
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
-    
+
     # Display the line chart for the selected district
     st.plotly_chart(fig)
 
@@ -171,6 +175,7 @@ st.markdown('''
 בחר את קבוצת הפשיעה:
 </h5>
 ''', unsafe_allow_html=True)
+# Assuming 'data' is your DataFrame
 
 # Get unique crime groups from the data
 all_crime_groups = data['StatisticCrimeGroup'].unique()
@@ -178,6 +183,7 @@ selected_groups = st.multiselect("", all_crime_groups, default=all_crime_groups)
 
 # Filter data based on selected groups
 filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)] if selected_groups else pd.DataFrame(columns=data.columns)
+# Create the figure
 
 # Create a histogram for the selected crime groups
 if not filtered_data.empty:
@@ -190,8 +196,8 @@ else:
     fig.update_layout(title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
 
 # Update font size for axis ticks
-fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18, color="black")))
-fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18, color="black")))
+fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
+fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
 
 # Update x-axis to show ticks for each cluster
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
@@ -202,14 +208,14 @@ fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
         font=dict(size=20)  # Increase the text size
     ), yaxis_title=dict(
         text="סכום התיקים המנורמל בגודל האוכלוסייה",
-        font=dict(size=20, color="black"),
+        font=dict(size=20),
         standoff=50  # Increase the text size
     ),
                   legend_title=dict(
         text="קבוצת העבירות",
         font=dict(size=20)  # Increase the text size
-    ), title_x=0.7, height=650,hoverlabel=dict(font_size=20, color="black"),
-    legend=dict(font=dict(size=20, color="black")))
+    ), title_x=0.7, height=650,hoverlabel=dict(font_size=20),
+    legend=dict(font=dict(size=20)))
 
 # Update hover template for the histogram
 fig.update_traces(
@@ -218,10 +224,12 @@ fig.update_traces(
 
 # Hide legend if only one crime group is selected
 if len(selected_groups) == 1:
+        fig.update_layout(showlegend=False)
     fig.update_layout(showlegend=False)
 
 # Display the histogram
 st.plotly_chart(fig)
+# Convert 'Quarter' to 'Year'
 
 # Convert 'Quarter' to 'Year' for further analysis
 df['Year'] = df['Quarter'].str[:4].astype(int)
@@ -244,10 +252,10 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
     # Set the order of the 'Religious level' column and use blue color saturation levels
     desired_order = ['חילונים', 'מסורתיים', 'דתיים', 'חרדים']
     merged_df['Religious level'] = pd.Categorical(merged_df['Religious level'], categories=desired_order, ordered=True)
-    
+
     # Define color sequence with varying saturation levels of blue
     color_sequence = [ '#cc4c02', '#ec7014', '#fe9929', '#fee391']
-    
+
     # If 'כלל העבירות' is selected, compute relative crime for all crime groups
     if selected_group == 'כלל העבירות':
         # Compute the total number of crimes for each crime group and year
@@ -297,23 +305,23 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      facet_col_wrap=6,
                      height=700,  # Set the height to fit the page
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
-    
+
     # Update layout to show x-axis in all facets
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20, color="black")))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20, color="black")))
-    
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
+
     # Update layout of the bar chart
-    fig.update_layout(title_x=0.65, hoverlabel=dict(font_size=20, color="black"),
-                      legend=dict(font=dict(size=18, color="black")),
-                      legend_title=dict(font=dict(size=20, color="black")),
+    fig.update_layout(title_x=0.65, hoverlabel=dict(font_size=15),
+                      legend=dict(font=dict(size=18)),
+                      legend_title=dict(font=dict(size=20)),
                       yaxis_title=dict(
-                          font=dict(size=20, color="black"),  # Increase the text size
+                          font=dict(size=20),  # Increase the text size
                           standoff=300
                       ),
                       yaxis=dict(
                           autorange='reversed'  # Reverse the y-axis order
                       ))
-    
+
     # Display the bar chart
     st.plotly_chart(fig, use_container_width=True)
 
