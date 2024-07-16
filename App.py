@@ -38,19 +38,8 @@ st.markdown("""<style>
         h1, h2, h3, h4, h5, h6 {
             text-align: right;
         }
-        body {
-            background-color: #0c0c3d;
-            color: #f5f5f5;
-            font-family: sans-serif;
-        }
-        
-        .stButton>button {
-            background-color: #535b5c;
-            color: #f5f5f5;
-        }
-        
-        .stAlert {
-            background-color: #228e94;
+        @base{
+        background-color: #0C0C3D;
         }
     </style>""", unsafe_allow_html=True)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
