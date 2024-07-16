@@ -206,10 +206,10 @@ fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 # Update layout of the histogram
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
         text="אשכול כלכלי-חברתי",
-        font=dict(size=20)  # Increase the text size
+        font=dict(size=20, color="black")  # Increase the text size
     ), yaxis_title=dict(
         text="סכום התיקים המנורמל בגודל האוכלוסייה",
-        font=dict(size=20),
+        font=dict(size=20, color="black"),
         standoff=50  # Increase the text size
     ),
                   legend_title=dict(
@@ -307,15 +307,15 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
 
     # Update layout to show x-axis in all facets
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20, color="black")))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20, color="black")))
 
     # Update layout of the bar chart
-    fig.update_layout(title_x=0.65, hoverlabel=dict(font_size=15),
-                      legend=dict(font=dict(size=18)),
-                      legend_title=dict(font=dict(size=20)),
+    fig.update_layout(title_x=0.65, hoverlabel=dict(font=dict(size=18, color="black")),
+                      legend=dict(font=dict(size=18, color="black")),
+                      legend_title=dict(font=dict(size=20, color="black")),
                       yaxis_title=dict(
-                          font=dict(size=20),  # Increase the text size
+                          font=dict(size=20, color="black"),  # Increase the text size
                           standoff=300
                       ),
                       yaxis=dict(
