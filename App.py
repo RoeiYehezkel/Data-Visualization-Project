@@ -130,7 +130,7 @@ else:
     fig.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
     fig.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
     fig.add_vline(x=13, line=dict(dash='dash', color='white'), annotation_text='שומר החומות', annotation_position='top')
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
     fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
     fig.update_traces(
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
