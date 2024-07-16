@@ -99,7 +99,8 @@ else:
     fig.update_layout(
         yaxis_title=dict(
             text="כמות התיקים",
-            font=dict(size=20)  # Increase the text size
+            font=dict(size=20),
+            standoff=30  # Increase the text size
         ), xaxis_title=dict(
             text="רבעון",
             font=dict(size=20)  # Increase the text size
@@ -139,7 +140,7 @@ else:
     fig = go.Figure()
     fig.add_trace(go.Bar(x=[], y=[]))
     fig.update_layout(title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
-fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=12)))
+fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
 fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
@@ -147,7 +148,8 @@ fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
         font=dict(size=20)  # Increase the text size
     ), yaxis_title=dict(
         text="סכום התיקים המנורמל בגודל האוכלוסייה",
-        font=dict(size=20)  # Increase the text size
+        font=dict(size=20),
+        standoff=30  # Increase the text size
     ),
                   legend_title=dict(
         text="קבוצת העבירות",
