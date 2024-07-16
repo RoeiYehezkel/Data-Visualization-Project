@@ -6,35 +6,27 @@ import matplotlib
 import plotly.graph_objects as go
 import numpy as np
 import os
-
 st.set_page_config(layout="wide")
 # Fixing Hebrew text orientation
 matplotlib.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.family'] = 'Arial'
 plt.rcParams['axes.titlepad'] = 20
-
 grouped_data = os.path.join(os.path.dirname(__file__), 'grouped_data.csv')
 g = pd.read_csv(grouped_data)
-
 # Aggregating data by Quarter and PoliceDistrict
 aggregated_data = g.groupby(['Quarter', 'PoliceDistrict'], as_index=False).sum()
-
 grouped_data_by_cluster = os.path.join(os.path.dirname(__file__), 'grouped_data_by_cluster.csv')
 data = pd.read_csv(grouped_data_by_cluster)
-
 preprocessed_data = os.path.join(os.path.dirname(__file__), 'preprocessed_data.csv')
 df = pd.read_csv(preprocessed_data)
-
 # Custom CSS to set text direction to right-to-left
 st.markdown("""<style>
-
         html {
-            text-align: right;
             direction: RTL;
+            text-align: right;
         }
         h1, h2, h3, h4, h5, h6 {
             text-align: right;
-
         }
     </style>""", unsafe_allow_html=True)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
@@ -50,9 +42,7 @@ st.markdown('''
 בחר את מחוז המשטרה(האם תוכל למצוא תופעות מעניינות במחוז מרכז?):
 </h5>
 ''', unsafe_allow_html=True)
-
 color_sequence_district = ['#a65628', '#74c476', '#ff7f00', '#f768a1', '#e5d8bd', '#e41a1c', '#fec44f']
-
 # Create the figure for all districts
 fig_all_districts = px.line(
     aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
@@ -74,18 +64,16 @@ fig_all_districts.update_layout(
     hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=18))
 )
-
+fig_all_districts.add_vline(x=6, line=dict(dash='dash', color='white'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
 fig_all_districts.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
 fig_all_districts.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
 fig_all_districts.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
 fig_all_districts.add_vline(x=13, line=dict(dash='dash', color='white'), annotation_text='שומר החומות', annotation_position='top')
-
-fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
-fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
+fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
 fig_all_districts.update_traces(
     hovertemplate='%{x}<br>סכום התיקים=%{y:,}'
 )
-
 # Dropdown with an additional "כלל המחוזות" option
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
 selected_district = st.selectbox("", options)
@@ -100,6 +88,9 @@ else:
     
     # Merge the total TikimSum with the district data
     district_data = pd.merge(district_data, quarter_totals, on='Quarter', how='left')
+    
+    # Calculate percentage increase
+    district_data['PercentIncrease'] = district_data.groupby('PoliceMerhav')['TikimSum'].pct_change() * 100
     
     fig = px.line(
         district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
@@ -118,18 +109,59 @@ else:
             text="מרחב",
             font=dict(size=20)  # Increase the text size
         ), hoverlabel=dict(font_size=20),
-        legend=dict(font=dict(size=20))
+        legend=dict(font=dict(size=18))
     )
+    fig.add_vline(x=6, line=dict(dash='dash', color='white'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
     fig.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
     fig.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
     fig.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
     fig.add_vline(x=13, line=dict(dash='dash', color='white'), annotation_text='שומר החומות', annotation_position='top')
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
     fig.update_traces(
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
     st.plotly_chart(fig)
+st.markdown('''
+<h5 class="rtl-text">
+בחר את קבוצת הפשיעה:
+</h5>
+''', unsafe_allow_html=True)
+# Assuming 'data' is your DataFrame
+all_crime_groups = data['StatisticCrimeGroup'].unique()
+selected_groups = st.multiselect("", all_crime_groups, default=all_crime_groups)
+# Filter data based on selected groups
+filtered_data = data[data['StatisticCrimeGroup'].isin(selected_groups)] if selected_groups else pd.DataFrame(columns=data.columns)
+# Create the figure
+if not filtered_data.empty:
+    fig = px.histogram(filtered_data, x='Cluster', y='norm', color='StatisticCrimeGroup', barmode='stack',
+                       title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב', hover_data={'Cluster': False, 'StatisticCrimeGroup': True, 'norm':':.3s'})
+else:
+    # Create an empty figure with the same layout
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=[], y=[]))
+    fig.update_layout(title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
+fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
+fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
+fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
+fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
+        text="אשכול כלכלי-חברתי",
+        font=dict(size=20)  # Increase the text size
+    ), yaxis_title=dict(
+        text="סכום התיקים המנורמל בגודל האוכלוסייה",
+        font=dict(size=20)  # Increase the text size
+    ),
+                  legend_title=dict(
+        text="קבוצת העבירות",
+        font=dict(size=20)  # Increase the text size
+    ), title_x=0.7, height=650,hoverlabel=dict(font_size=20),
+    legend=dict(font=dict(size=20)))
+fig.update_traces(
+    hovertemplate='קבוצת העבירה=%{fullData.name}<br>סכום התיקים המנורמל=%{y:,}'
+)
+if len(selected_groups) == 1:
+        fig.update_layout(showlegend=False)
+st.plotly_chart(fig)
 # Convert 'Quarter' to 'Year'
 df['Year'] = df['Quarter'].str[:4].astype(int)
 data['Year'] = data['Quarter'].str[:4].astype(int)
@@ -142,7 +174,6 @@ st.markdown('''
 def plot_relative_crime_by_religion_and_group(df, data, selected_group):
     # Merge the two dataframes on StatisticCrimeGroup, Cluster, and Year
     merged_df = pd.merge(df, data, on=['StatisticCrimeGroup', 'Year'], suffixes=('_original', '_norm'))
-
     # Ensure Year is treated as a categorical variable with a specific order
     merged_df['Year'] = pd.Categorical(merged_df['Year'], ordered=True, categories=sorted(df['Year'].unique()))
     
@@ -152,22 +183,17 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
     
     # Define color sequence with varying saturation levels of blue
     color_sequence = ['#cc4c02', '#fe9929', '#fed98e', '#ffffd4']
-
     if selected_group == 'כלל העבירות':
         # Compute the total number of crimes for each crime group and year
         total_crimes_per_group = merged_df.groupby(['StatisticCrimeGroup', 'Year'])['TikimSum_original'].sum().reset_index()
         total_crimes_per_group.columns = ['StatisticCrimeGroup', 'Year', 'TotalTikimSum']
-
         # Merge the total crimes with the merged dataframe
         df_merged = pd.merge(merged_df, total_crimes_per_group, on=['StatisticCrimeGroup', 'Year'])
-
         # Compute the relative number of crimes for each religious level within each crime group
         df_merged['RelativeTikimSum'] = df_merged['TikimSum_original'] / df_merged['TotalTikimSum']
-
         # Group by crime group, religious level, and year
         relative_crime_data = df_merged.groupby(['StatisticCrimeGroup', 'Religious level', 'Year']).agg({'RelativeTikimSum': 'sum',
             'TikimSum_original': 'sum'}).reset_index()
-
         # Plot the relative bar chart with small multiples for each year
         fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeGroup', color='Religious level',
                      title=f'הקשר בין רמת הדתיות לרמת הפשיעה לפי קבוצת עבירה',
@@ -183,21 +209,16 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
     else:
         # Filter the dataframe by selected crime group
         filtered_df = merged_df[merged_df['StatisticCrimeGroup'] == selected_group]
-
         # Compute the total number of crimes for each crime type and year within the selected crime group
         total_crimes_per_type = filtered_df.groupby(['StatisticCrimeType', 'Year'])['TikimSum_original'].sum().reset_index()
         total_crimes_per_type.columns = ['StatisticCrimeType', 'Year', 'TotalTikimSum']
-
         # Merge the total crimes with the filtered dataframe
         df_merged = pd.merge(filtered_df, total_crimes_per_type, on=['StatisticCrimeType', 'Year'])
-
         # Compute the relative number of crimes for each religious level within each crime type
         df_merged['RelativeTikimSum'] = df_merged['TikimSum_original'] / df_merged['TotalTikimSum']
-
         # Group by crime type, religious level, and year
         relative_crime_data = df_merged.groupby(['StatisticCrimeType', 'Religious level', 'Year']).agg({'RelativeTikimSum': 'sum',
             'TikimSum_original': 'sum'}).reset_index()
-
         # Plot the relative bar chart with small multiples for each year
         fig = px.bar(relative_crime_data, x='RelativeTikimSum', y='StatisticCrimeType', color='Religious level',
                      title=f'הקשר בין מידת הדתיות של היישוב לרמת הפשיעה לפי {selected_group}',
@@ -210,7 +231,6 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                      facet_col_wrap=6,
                      height=700,  # Set the height to fit the page
                      facet_row_spacing=0.05)  # Adjust row spacing if needed
-
     # Update layout to show x-axis in all facets
     fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
     fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
@@ -221,7 +241,6 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                           font=dict(size=20)  # Increase the text size
                       ))
     st.plotly_chart(fig, use_container_width=True)
-
 st.markdown('''
 <h5 class="rtl-text">
 בגרף זה המציגים אינם מנסים להעליל ביצוע עבירות על קבוצות מסוימות מהאוכלוסיה. הסיווג הוא ברמת היישוב, לפי נתוני הלמס
@@ -232,6 +251,5 @@ unique_years = df['Year'].unique()
 # Add a dropdown to select the crime group
 crime_groups = sorted(['כלל העבירות'] + df['StatisticCrimeGroup'].unique().tolist())
 selected_group = st.selectbox('', crime_groups)
-
 # Call the function to plot the chart
 plot_relative_crime_by_religion_and_group(df, data, selected_group)
