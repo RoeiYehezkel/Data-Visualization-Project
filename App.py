@@ -15,7 +15,7 @@ st.set_page_config(layout="wide")
 # Fixing Hebrew text orientation for Matplotlib plots
 matplotlib.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.family'] = 'Arial'
-plt.rcParams['axes.titlepad'] = 20
+plt.rcParams['axes.titlepad'] = 21
 
 # Load the grouped data
 grouped_data = os.path.join(os.path.dirname(__file__), 'grouped_data.csv')
