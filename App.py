@@ -27,9 +27,7 @@ df = pd.read_csv(preprocessed_data)
 
 # Custom CSS to set text direction to right-to-left
 st.markdown("""<style>
-        div[data-baseweb="select"] {
-            direction: RTL;
-        }
+
         html {
             direction: RTL;
             text-align: right;
