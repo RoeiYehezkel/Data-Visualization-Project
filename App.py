@@ -30,6 +30,7 @@ st.markdown("""<style>
 
         html {
             text-align: right;
+            direction: RTL;
         }
         h1, h2, h3, h4, h5, h6 {
             text-align: right;
