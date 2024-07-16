@@ -35,7 +35,7 @@ st.markdown("""<style>
             unicode-bidi: bidi-override;
             text-align: right;
         }
-        p, div, input, label, h1, h2, h3, h4, h5, h6 {
+        p, div, label, h1, h2, h3, h4, h5, h6 {
             direction: RTL;
             unicode-bidi: bidi-override;
             text-align: right;
