@@ -89,8 +89,6 @@ else:
     # Merge the total TikimSum with the district data
     district_data = pd.merge(district_data, quarter_totals, on='Quarter', how='left')
     
-    # Calculate percentage increase
-    district_data['PercentIncrease'] = district_data.groupby('PoliceMerhav')['TikimSum'].pct_change() * 100
     
     fig = px.line(
         district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
@@ -141,7 +139,7 @@ else:
     fig = go.Figure()
     fig.add_trace(go.Bar(x=[], y=[]))
     fig.update_layout(title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
-fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
+fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=12)))
 fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
