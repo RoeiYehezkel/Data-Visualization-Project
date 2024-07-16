@@ -147,7 +147,7 @@ else:
         ), title_x=0.75, legend_title=dict(
             text="מרחב",
             font=dict(size=20, color="black")  # Increase the text size
-        ), hoverlabel=dict(font=dict(size=20, color="black"),
+        ), hoverlabel=dict(font=dict(size=20, color="black")),
         legend=dict(font=dict(size=18, color="black"))
     )
 
