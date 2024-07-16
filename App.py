@@ -75,7 +75,7 @@ st.markdown('''
 ''', unsafe_allow_html=True)
 st.markdown('''
 <h5 class="rtl-text">
-בחר את מחוז המשטרה:
+בחר את מחוז המשטרה(האם תוכל למצוא תופעות מעניינות במחוז מרכז?):
 </h5>
 ''', unsafe_allow_html=True)
 
@@ -297,7 +297,11 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                       ))
     st.plotly_chart(fig, use_container_width=True)
 
-# Example usage
+st.markdown('''
+<h5 class="rtl-text">
+בגרף זה המציגים אינם מנסים להעליל ביצוע עבירות על קבוצות מסוימות מהאוכלוסיה. הסיווג הוא ברמת היישוב, לפי נתוני הלמס
+</h5>
+''', unsafe_allow_html=True)
 # Get unique years from the dataframe
 unique_years = df['Year'].unique()
 # Add a dropdown to select the crime group
