@@ -44,7 +44,7 @@ st.markdown('''
 בחר את מחוז המשטרה(האם תוכל למצוא תופעות מעניינות במחוז מרכז?):
 </h5>
 ''', unsafe_allow_html=True)
-color_sequence_district = ['#a65628', '#74c476', '#ff7f00', '#f768a1', '#e5d8bd', '#e41a1c', '#fec44f']
+color_sequence_district = ["#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00","#ffff33","#a65628"]
 # Create the figure for all districts
 fig_all_districts = px.line(
     aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
@@ -67,11 +67,11 @@ fig_all_districts.update_layout(
     hoverlabel=dict(font_size=20),
     legend=dict(font=dict(size=18))
 )
-fig_all_districts.add_vline(x=6, line=dict(dash='dash', color='white'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
-fig_all_districts.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
-fig_all_districts.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
-fig_all_districts.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
-fig_all_districts.add_vline(x=13, line=dict(dash='dash', color='white'), annotation_text='שומר החומות', annotation_position='top')
+fig_all_districts.add_vline(x=6, line=dict(dash='dash', color='blue'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
+fig_all_districts.add_vline(x=9, line=dict(dash='dash', color='blue'), annotation_text='סגר ראשון', annotation_position='top')
+fig_all_districts.add_vline(x=11, line=dict(dash='dash', color='blue'), annotation_text='סגר שני', annotation_position='top')
+fig_all_districts.add_vline(x=12, line=dict(dash='dash', color='blue'), annotation_text='סגר שלישי', annotation_position='top')
+fig_all_districts.add_vline(x=13, line=dict(dash='dash', color='blue'), annotation_text='שומר החומות', annotation_position='top')
 fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
 fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
 fig_all_districts.update_traces(
@@ -113,11 +113,11 @@ else:
         ), hoverlabel=dict(font_size=20),
         legend=dict(font=dict(size=18))
     )
-    fig.add_vline(x=6, line=dict(dash='dash', color='white'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
-    fig.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
-    fig.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
-    fig.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
-    fig.add_vline(x=13, line=dict(dash='dash', color='white'), annotation_text='שומר החומות', annotation_position='top')
+    fig.add_vline(x=6, line=dict(dash='dash', color='blue'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
+    fig.add_vline(x=9, line=dict(dash='dash', color='blue'), annotation_text='סגר ראשון', annotation_position='top')
+    fig.add_vline(x=11, line=dict(dash='dash', color='blue'), annotation_text='סגר שני', annotation_position='top')
+    fig.add_vline(x=12, line=dict(dash='dash', color='blue'), annotation_text='סגר שלישי', annotation_position='top')
+    fig.add_vline(x=13, line=dict(dash='dash', color='blue'), annotation_text='שומר החומות', annotation_position='top')
     fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
     fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
     fig.update_traces(
@@ -185,7 +185,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
     merged_df['Religious level'] = pd.Categorical(merged_df['Religious level'], categories=desired_order, ordered=True)
     
     # Define color sequence with varying saturation levels of blue
-    color_sequence = ['#cc4c02', '#fe9929', '#fed98e', '#ffffd4']
+    color_sequence = ['#8c2d04', '#cc4c02', '#fe9929', '#fee391']
     if selected_group == 'כלל העבירות':
         # Compute the total number of crimes for each crime group and year
         total_crimes_per_group = merged_df.groupby(['StatisticCrimeGroup', 'Year'])['TikimSum_original'].sum().reset_index()
