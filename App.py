@@ -19,6 +19,7 @@ g = pd.read_csv(grouped_data)
 # Aggregating data by Quarter and PoliceDistrict
 aggregated_data = g.groupby(['Quarter', 'PoliceDistrict'], as_index=False).sum()
 aggregated_data['PercentIncrease'] = aggregated_data.groupby('PoliceDistrict')['TikimSum'].pct_change() * 100
+aggregated_data['PercentIncrease'] = aggregated_data['PercentIncrease'].fillna(0)  # Fill NaNs with 0 for the first quarter
 
 grouped_data_by_cluster = os.path.join(os.path.dirname(__file__), 'grouped_data_by_cluster.csv')
 data = pd.read_csv(grouped_data_by_cluster)
