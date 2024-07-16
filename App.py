@@ -225,7 +225,6 @@ fig.update_traces(
 # Hide legend if only one crime group is selected
 if len(selected_groups) == 1:
         fig.update_layout(showlegend=False)
-    fig.update_layout(showlegend=False)
 
 # Display the histogram
 st.plotly_chart(fig)
