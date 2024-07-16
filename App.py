@@ -110,7 +110,7 @@ fig_all_districts.update_traces(
 # Dropdown with an additional "כלל המחוזות" option
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
 options = ["כלל המחוזות"] + list(g['PoliceDistrict'].unique())
-selected_district = st.selectbox("", options, key='district_selectbox')
+selected_district = st.selectbox("", options, key='district_selectbox_rtl')
 if selected_district == "כלל המחוזות":
     st.plotly_chart(fig_all_districts)
 else:
