@@ -40,40 +40,6 @@ st.markdown("""<style>
             unicode-bidi: bidi-override;
             text-align: right;
         }
-        select{
-            text-align: right;
-            padding-right: 29px;
-            direction: rtl;
-        }
-        .rtl-text {
-            direction: rtl;
-            text-align: right;
-        }
-        .stSelectbox, .stMultiSelect {
-            direction: rtl !important;
-            text-align: right;
-        }
-        div[data-baseweb="select"] > div {
-            direction: rtl !important;
-            text-align: right !important;
-        }
-        div[data-baseweb="select"] span {
-            direction: rtl !important;
-            text-align: right !important;
-        }
-        div[data-baseweb="select"] ul {
-            direction: rtl !important;
-            text-align: right !important;
-        }
-        div[data-baseweb="select"] li {
-            direction: rtl !important;
-            text-align: right !important;
-        }
-        .stSelectbox > div[data-baseweb="select"] > div[title] {
-            direction: rtl !important;
-            justify-content: flex-end !important;
-            text-align: right;
-        }
     </style>""", unsafe_allow_html=True)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
 st.markdown('''
