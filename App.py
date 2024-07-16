@@ -62,7 +62,7 @@ fig_all_districts = px.line(
     aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
     title="מגמות התיקים שנפתחו לפי מחוז משטרה",
     color_discrete_sequence=color_sequence_district,
-    hover_data={'Quarter': True, 'TikimSum': ':.3s', 'PercentIncrease': ':.2f'}
+    hover_data={'Quarter': True, 'TikimSum': ':.3s'}
 )
 fig_all_districts.update_layout(
     yaxis_title=dict(
@@ -114,7 +114,7 @@ else:
         district_data, x='Quarter', y='TikimSum', color='PoliceMerhav',
         title=f'מגמות התיקים שנפתחו ב{selected_district}',
         color_discrete_sequence=color_sequence_district,
-        hover_data={'Quarter': True, 'TikimSum': ':.3s', 'TotalTikimSum': True, 'PercentIncrease': ':.2f'}
+        hover_data={'Quarter': True, 'TikimSum': ':.3s', 'TotalTikimSum': True}
     )
     fig.update_layout(
         yaxis_title=dict(
