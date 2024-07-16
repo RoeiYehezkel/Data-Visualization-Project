@@ -87,7 +87,7 @@ fig_all_districts.update_layout(
         text="מחוז משטרה",
         font=dict(size=20, color="black")  # Increase the text size
     ),
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=20, color="black"),
     legend=dict(font=dict(size=18, color="black"))
 )
 
@@ -99,8 +99,8 @@ fig_all_districts.add_vline(x=12, line=dict(dash='dash', color='blue'), annotati
 fig_all_districts.add_vline(x=13, line=dict(dash='dash', color='blue'), annotation_text='שומר החומות', annotation_position='top')
 
 # Update font size for axis ticks
-fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
-fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
+fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20, color="black")))
+fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20, color="black")))
 
 # Update hover template for the line chart
 fig_all_districts.update_traces(
@@ -138,16 +138,16 @@ else:
     fig.update_layout(
         yaxis_title=dict(
             text="כמות התיקים",
-            font=dict(size=20),
+            font=dict(size=20, color="black"),
             standoff=75  # Increase the text size
         ), xaxis_title=dict(
             text="רבעון",
-            font=dict(size=20)  # Increase the text size
+            font=dict(size=20, color="black")  # Increase the text size
         ), title_x=0.75, legend_title=dict(
             text="מרחב",
-            font=dict(size=20)  # Increase the text size
-        ), hoverlabel=dict(font_size=20),
-        legend=dict(font=dict(size=18))
+            font=dict(size=20, color="black")  # Increase the text size
+        ), hoverlabel=dict(font_size=20, color="black"),
+        legend=dict(font=dict(size=18, color="black"))
     )
 
     # Add vertical lines for significant events
@@ -158,8 +158,8 @@ else:
     fig.add_vline(x=13, line=dict(dash='dash', color='blue'), annotation_text='שומר החומות', annotation_position='top')
 
     # Update font size for axis ticks
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20, color="black")))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20, color="black")))
 
     # Update hover template for the line chart
     fig.update_traces(
