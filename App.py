@@ -31,7 +31,7 @@ st.markdown("""<style>
             direction: RTL;
         }
         select{
-            text-align-last:right;
+            text-align: right;
             padding-right: 29px;
             direction: rtl;
         }
@@ -41,6 +41,7 @@ st.markdown("""<style>
         }
         .stSelectbox, .stMultiSelect {
             direction: rtl !important;
+            text-align: right;
         }
         div[data-baseweb="select"] > div {
             direction: rtl !important;
@@ -61,6 +62,7 @@ st.markdown("""<style>
         .stSelectbox > div[data-baseweb="select"] > div[title] {
             direction: rtl !important;
             justify-content: flex-end !important;
+            text-align: right;
         }
     </style>""", unsafe_allow_html=True)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
