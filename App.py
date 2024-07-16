@@ -82,8 +82,8 @@ fig_all_districts.add_vline(x=11, line=dict(dash='dash', color='white'), annotat
 fig_all_districts.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
 fig_all_districts.add_vline(x=13, line=dict(dash='dash', color='white'), annotation_text='שומר החומות', annotation_position='top')
 
-fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
-fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
+fig_all_districts.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+fig_all_districts.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
 fig_all_districts.update_traces(
 
     hovertemplate='%{x}<br>סכום התיקים=%{y:,}'
