@@ -6,6 +6,16 @@ import matplotlib
 import plotly.graph_objects as go
 import numpy as np
 import os
+import toml
+
+# Load configuration from config.toml
+def load_config():
+    with open(".streamlit/config.toml") as f:
+        config = toml.load(f)
+    return config
+
+config = load_config()
+
 st.set_page_config(layout="wide")
 # Fixing Hebrew text orientation
 matplotlib.rcParams['axes.unicode_minus'] = False
