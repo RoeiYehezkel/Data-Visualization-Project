@@ -54,7 +54,7 @@ fig_all_districts.update_layout(
     yaxis_title=dict(
         text="כמות התיקים",
         font=dict(size=20),
-        standoff=70  # Increase the text size
+        standoff=30  # Increase the text size
     ), xaxis_title=dict(
         text="רבעון",
         font=dict(size=20)  # Increase the text size
@@ -101,7 +101,7 @@ else:
         yaxis_title=dict(
             text="כמות התיקים",
             font=dict(size=20),
-            standoff=70  # Increase the text size
+            standoff=30  # Increase the text size
         ), xaxis_title=dict(
             text="רבעון",
             font=dict(size=20)  # Increase the text size
@@ -116,8 +116,8 @@ else:
     fig.add_vline(x=11, line=dict(dash='dash', color='white'), annotation_text='סגר שני', annotation_position='top')
     fig.add_vline(x=12, line=dict(dash='dash', color='white'), annotation_text='סגר שלישי', annotation_position='top')
     fig.add_vline(x=13, line=dict(dash='dash', color='white'), annotation_text='שומר החומות', annotation_position='top')
-    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=15)))
-    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=15)))
+    fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
     fig.update_traces(
         hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
@@ -239,7 +239,8 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                       legend=dict(font=dict(size=18)),
                       legend_title=dict(font=dict(size=20)),
                       yaxis_title=dict(
-                          font=dict(size=20)  # Increase the text size
+                          font=dict(size=20),  # Increase the text size
+                          standoff=30
                       ))
     st.plotly_chart(fig, use_container_width=True)
 st.markdown('''
