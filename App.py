@@ -92,51 +92,11 @@ fig_all_districts.update_layout(
 )
 
 # Add vertical lines for significant events
-fig_all_districts.add_vline(
-    x=6, 
-    line=dict(dash='dash', color='blue'), 
-    annotation=dict(
-        text='מחאת יוצאי אתיופיה-סלומון טקה', 
-        position='top',
-        font=dict(size=14, color='black')  # Adjust size and color here
-    )
-)
-fig_all_districts.add_vline(
-    x=9, 
-    line=dict(dash='dash', color='blue'), 
-    annotation=dict(
-        text='סגר ראשון', 
-        position='top',
-        font=dict(size=14, color='black')  # Adjust size and color here
-    )
-)
-fig_all_districts.add_vline(
-    x=11, 
-    line=dict(dash='dash', color='blue'), 
-    annotation=dict(
-        text='סגר שני', 
-        position='top',
-        font=dict(size=14, color='black')  # Adjust size and color here
-    )
-)
-fig_all_districts.add_vline(
-    x=12, 
-    line=dict(dash='dash', color='blue'), 
-    annotation=dict(
-        text='סגר שלישי', 
-        position='top',
-        font=dict(size=14, color='black')  # Adjust size and color here
-    )
-)
-fig_all_districts.add_vline(
-    x=13, 
-    line=dict(dash='dash', color='blue'), 
-    annotation=dict(
-        text='שומר החומות', 
-        position='top',
-        font=dict(size=14, color='black')  # Adjust size and color here
-    )
-)
+fig_all_districts.add_vline(x=6, line=dict(dash='dash', color='blue'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
+fig_all_districts.add_vline(x=9, line=dict(dash='dash', color='blue'), annotation_text='סגר ראשון', annotation_position='top')
+fig_all_districts.add_vline(x=11, line=dict(dash='dash', color='blue'), annotation_text='סגר שני', annotation_position='top')
+fig_all_districts.add_vline(x=12, line=dict(dash='dash', color='blue'), annotation_text='סגר שלישי', annotation_position='top')
+fig_all_districts.add_vline(x=13, line=dict(dash='dash', color='blue'), annotation_text='שומר החומות', annotation_position='top')
 
 
 # Update font size for axis ticks
@@ -187,7 +147,7 @@ else:
         ), title_x=0.75, legend_title=dict(
             text="מרחב",
             font=dict(size=20, color="black")  # Increase the text size
-        ), hoverlabel=dict(font_size=20, color="black"),
+        ), hoverlabel=dict(font=dict(size=20, color="black"),
         legend=dict(font=dict(size=18, color="black"))
     )
 
@@ -237,8 +197,8 @@ else:
     fig.update_layout(title=f'התפלגות העבירות הנ"ל לפי האשכול החברתי-כלכלי של היישוב')
 
 # Update font size for axis ticks
-fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
-fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
+fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18, color="black")))
+fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18, color="black")))
 
 # Update x-axis to show ticks for each cluster
 fig.update_xaxes(tickmode='linear', tick0=1, dtick=1)
@@ -254,9 +214,9 @@ fig.update_layout(barmode='relative', bargap=0.2, xaxis_title=dict(
     ),
                   legend_title=dict(
         text="קבוצת העבירות",
-        font=dict(size=20)  # Increase the text size
-    ), title_x=0.7, height=650,hoverlabel=dict(font_size=20),
-    legend=dict(font=dict(size=20)))
+        font=dict(size=20, color="black")  # Increase the text size
+    ), title_x=0.7, height=650,hoverlabel=dict(font=dict(size=20, color="black"),
+    legend=dict(font=dict(size=20, color="black")))
 
 # Update hover template for the histogram
 fig.update_traces(
