@@ -44,7 +44,7 @@ st.markdown('''
 בחר את מחוז המשטרה(האם תוכל למצוא תופעות מעניינות במחוז מרכז?):
 </h5>
 ''', unsafe_allow_html=True)
-color_sequence_district = ["#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00","#ec7014","#a65628"]
+color_sequence_district = ["#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00","#e7298a","#a65628"]
 # Create the figure for all districts
 fig_all_districts = px.line(
     aggregated_data, x='Quarter', y='TikimSum', color='PoliceDistrict',
