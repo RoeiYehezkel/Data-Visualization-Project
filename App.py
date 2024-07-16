@@ -74,9 +74,9 @@ st.markdown('''
 </h3>
 ''', unsafe_allow_html=True)
 st.markdown('''
-<div class="rtl-text">
+<h5 class="rtl-text">
 בחר את מחוז המשטרה:
-</div>
+</h5>
 ''', unsafe_allow_html=True)
 
 color_sequence_district = ['#a65628', '#74c476', '#ff7f00', '#f768a1', '#e5d8bd', '#e41a1c', '#fec44f']
@@ -293,9 +293,6 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
                       legend=dict(font=dict(size=18)),
                       legend_title=dict(font=dict(size=20)),
                       yaxis_title=dict(
-                          font=dict(size=20)  # Increase the text size
-                      ),
-                     xaxis_title=dict(
                           font=dict(size=20)  # Increase the text size
                       ))
     st.plotly_chart(fig, use_container_width=True)
