@@ -139,7 +139,7 @@ else:
     fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=18)))
     fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=18)))
     fig.update_traces(
-        hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>שינוי מהתקופה הקודמת=%{PercentIncrease:.2f}%%<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
+        hovertemplate='%{x}<br>סכום התיקים=%{y:,}<br>שינוי מהתקופה הקודמת=%{customdata:.2f}%<br>סכום התיקים הכולל במחוז=%{customdata[0]:,}'
     )
     st.plotly_chart(fig)
 st.markdown('''
