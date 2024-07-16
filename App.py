@@ -288,6 +288,7 @@ def plot_relative_crime_by_religion_and_group(df, data, selected_group):
 
     # Update layout to show x-axis in all facets
     fig.for_each_yaxis(lambda yaxis: yaxis.update(tickfont=dict(size=20)))
+    fig.for_each_xaxis(lambda xaxis: xaxis.update(tickfont=dict(size=20)))
     fig.update_layout(title_x=0.65, hoverlabel=dict(font_size=20),
                       legend=dict(font=dict(size=18)),
                       legend_title=dict(font=dict(size=20)),
