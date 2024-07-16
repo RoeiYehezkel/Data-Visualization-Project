@@ -32,12 +32,10 @@ st.markdown("""<style>
         }
         html {
             direction: RTL;
-            unicode-bidi: bidi-override;
             text-align: right;
         }
         div, h1, h2, h3, h4, h5, h6 {
             direction: RTL;
-            unicode-bidi: bidi-override;
             text-align: right;
         }
     </style>""", unsafe_allow_html=True)
