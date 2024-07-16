@@ -117,10 +117,9 @@ else:
         hover_data={'Quarter': True, 'TikimSum': ':.3s', 'TotalTikimSum': True}
     )
     fig.update_layout(
-        width=1400,    
         yaxis_title=dict(
             text="כמות התיקים",
-            font=dict(size=20)  # Increase the text size
+            font=dict(size=18)  # Increase the text size
         ), xaxis_title=dict(
             text="רבעון",
             font=dict(size=20)  # Increase the text size
@@ -128,7 +127,7 @@ else:
             text="מרחב",
             font=dict(size=20)  # Increase the text size
         ), hoverlabel=dict(font_size=20),
-        legend=dict(font=dict(size=20))
+        legend=dict(font=dict(size=15))
     )
     fig.add_vline(x=6, line=dict(dash='dash', color='white'), annotation_text='מחאת יוצאי אתיופיה-סלומון טקה', annotation_position='top')
     fig.add_vline(x=9, line=dict(dash='dash', color='white'), annotation_text='סגר ראשון', annotation_position='top')
