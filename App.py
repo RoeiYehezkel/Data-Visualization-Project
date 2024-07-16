@@ -31,15 +31,23 @@ preprocessed_data = os.path.join(os.path.dirname(__file__), 'preprocessed_data.c
 df = pd.read_csv(preprocessed_data)
 # Custom CSS to set text direction to right-to-left
 st.markdown("""<style>
+        theme{
+            --primary-color:"#535b5c";
+            --background-color:"#0c0c3d";
+            --secondary-background-color:"#228e94";
+            --text-color:"#f5f5f5";
+
+        }
         html {
             direction: RTL;
             text-align: right;
+            color: var(--text-color);
         }
         h1, h2, h3, h4, h5, h6 {
             text-align: right;
         }
         @base{
-        background-color: #0C0C3D;
+        background-color: "#0C0C3D";
         }
     </style>""", unsafe_allow_html=True)
 st.markdown('<h1 class="rtl-text">כיצד משתנה היקף הפשיעה בישראל בהתאם לאזורים גיאוגרפיים שונים ולתקופות זמן שונות?</h1>', unsafe_allow_html=True)
