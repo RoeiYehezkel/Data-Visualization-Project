@@ -38,7 +38,7 @@ st.markdown("""<style>
             direction: RTL;
             text-align: right;
         }
-        h1, h2, h3, h4, h5, h6 {
+        h1, h2, h3, h4, h5 {
             text-align: right;
         }
     </style>""", unsafe_allow_html=True)
