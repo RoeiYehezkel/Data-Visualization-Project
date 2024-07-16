@@ -30,6 +30,11 @@ st.markdown("""<style>
         div[data-baseweb="select"] {
             direction: RTL;
         }
+        select{
+            text-align-last:right;
+            padding-right: 29px;
+            direction: rtl;
+        }
         .rtl-text {
             direction: rtl;
             text-align: right;
